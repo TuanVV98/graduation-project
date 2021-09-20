@@ -2,7 +2,7 @@ package com.spring.service.accounts;
 
 import com.spring.dto.model.AccountsDTO;
 import com.spring.model.Accounts;
-import com.spring.repository.AccountRepository;
+import com.spring.repository.AccountsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class AccountsServiceImpl implements AccountsService{
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountsRepository accountRepository;
 
     @Override
     public List<AccountsDTO> findAll() {
