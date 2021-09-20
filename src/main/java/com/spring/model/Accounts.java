@@ -75,4 +75,5 @@ public class Accounts {
     public Accounts convertEntityToDTO() {
         return new ModelMapper().map(this, Accounts.class);
     }
+
 }
