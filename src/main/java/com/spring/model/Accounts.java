@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
