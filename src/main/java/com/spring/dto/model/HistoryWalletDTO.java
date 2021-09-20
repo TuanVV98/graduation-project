@@ -5,15 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class E_walletDTO {
+public class HistoryWalletDTO {
 
     private Integer id;
 
-    private Double balance;
+    private Date createAt = new Date();
 
-    Customer_profileDTO customer_profile;
+    EWalletDTO eWalletDTO;
+
+    private String description;
+
 }

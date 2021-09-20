@@ -17,8 +17,8 @@ public class LikesDTO {
 
     private Date createAt = new Date();
 
-    PostsDTO posts;
+    PostsDTO postsDTO;
 
-    AccountsDTO accounts;
+    AccountsDTO accountsDTO;
 
 }

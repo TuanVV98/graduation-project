@@ -48,5 +48,5 @@ public class Voucher {
 //one to many
     @JsonIgnore
     @OneToMany(mappedBy = "voucher")
-    List<Booking_detail> booking_details;
+    List<BookingDetail> bookingDetails;
 }

@@ -44,5 +44,5 @@ public class Service {
 //one to many
     @JsonIgnore
     @OneToMany(mappedBy = "service")
-    List<Booking_detail> booking_details;
+    List<BookingDetail> bookingDetails;
 }

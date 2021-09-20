@@ -13,32 +13,22 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "verifycation_token")
-public class Verifycation_token {
+@Table(name = "history_wallet")
+public class HistoryWallet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    Accounts accounts;
-
-    @Column(name = "token")
-    private String token;
-
-    @Column(name = "type")
-    private String type;
-
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
     private Date createAt = new Date();
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "expires_at")
-    private Date expiresAt = new Date();
+    @ManyToOne
+    @JoinColumn(name = "wallet_id")
+    EWallet eWallet;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "cerified")
-    private Date cerified = new Date();
+    @Column(name = "description")
+    private String description;
+
 }

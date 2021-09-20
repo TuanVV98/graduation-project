@@ -32,9 +32,9 @@ public class Communes {
 //one to many
     @JsonIgnore
     @OneToMany(mappedBy = "communes")
-    List<Customer_profile> customer_profiles;
+    List<CustomerProfile> customerProfiles;
 
     @JsonIgnore
     @OneToMany(mappedBy = "communes")
-    List<Dentist_profile> dentist_profiles;
+    List<DentistProfile> dentistProfiles;
 }

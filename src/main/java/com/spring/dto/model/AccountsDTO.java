@@ -23,7 +23,7 @@ public class AccountsDTO {
 
     private Date updateAt = new Date();
 
-    RolesDTO roles;
+    RolesDTO rolesDTO;
 
     private Boolean deleteAt;
 }

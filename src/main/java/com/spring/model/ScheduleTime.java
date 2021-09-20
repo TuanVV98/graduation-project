@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "schedule_time")
-public class Schedule_time {
+public class ScheduleTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -36,13 +36,13 @@ public class Schedule_time {
 
     @ManyToOne
     @JoinColumn(name = "dentist_id")
-    Dentist_profile dentist_profile;
+    DentistProfile dentistProfile;
 
     @Column(name = "delete_at")
     private Boolean deleteAt;
 
 // one to many
     @JsonIgnore
-    @OneToMany(mappedBy = "schedule_time")
+    @OneToMany(mappedBy = "scheduleTime")
     List<Booking> bookings;
 }

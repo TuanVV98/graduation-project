@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Schedule_timeDTO {
+public class ScheduleTimeDTO {
 
     private Integer id;
 
@@ -21,7 +21,7 @@ public class Schedule_timeDTO {
 
     private Date end = new Date();
 
-    Dentist_profileDTO dentist_profile;
+    DentistProfileDTO dentistProfileDTO;
 
     private Boolean deleteAt;
 

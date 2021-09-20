@@ -52,11 +52,11 @@ public class Accounts {
 
     @JsonIgnore
     @OneToMany(mappedBy = "accounts")
-    List<Customer_profile> customer_profiles;
+    List<CustomerProfile> customerProfiles;
 
     @JsonIgnore
     @OneToMany(mappedBy = "accounts")
-    List<Dentist_profile> dentist_profiles;
+    List<DentistProfile> dentistProfiles;
 
     @JsonIgnore
     @OneToMany(mappedBy = "accounts")
@@ -68,5 +68,5 @@ public class Accounts {
 
     @JsonIgnore
     @OneToMany(mappedBy = "accounts")
-    List<Verifycation_token> verifycation_tokens;
+    List<VerifycationToken> verifycationTokens;
 }

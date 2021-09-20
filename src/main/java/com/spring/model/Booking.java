@@ -23,11 +23,11 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "dentist_id")
-    Dentist_profile dentist_profile;
+    DentistProfile dentistProfile;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    Customer_profile customer_profile;
+    CustomerProfile customerProfile;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "booking_date")
@@ -41,10 +41,10 @@ public class Booking {
 
     @ManyToOne()
     @JoinColumn(name = "schedule_time_id")
-    Schedule_time schedule_time;
+    ScheduleTime scheduleTime;
 
 //one to many
     @JsonIgnore
     @OneToMany(mappedBy = "booking")
-    List<Booking_detail> booking_details;
+    List<BookingDetail> bookingDetails;
 }

@@ -11,11 +11,11 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Dentist_profileDTO {
+public class DentistProfileDTO {
 
     private Integer id;
 
-    AccountsDTO accounts;
+    AccountsDTO accountsDTO;
 
     private String image;
 
@@ -27,7 +27,7 @@ public class Dentist_profileDTO {
 
     private Boolean gender;
 
-    CommunesDTO communes;
+    CommunesDTO communesDTO;
 
     private String telephone;
 

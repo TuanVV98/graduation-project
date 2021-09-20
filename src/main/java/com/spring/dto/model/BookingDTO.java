@@ -15,9 +15,9 @@ public class BookingDTO {
 
     private Integer id;
 
-    Dentist_profileDTO dentist_profile;
+    DentistProfileDTO dentistProfileDTO;
 
-    Customer_profileDTO customer_profile;
+    CustomerProfileDTO customerProfileDTO;
 
     private Date bookingDate = new Date();
 
@@ -25,5 +25,5 @@ public class BookingDTO {
 
     private Integer status;
 
-    Schedule_timeDTO schedule_time;
+    ScheduleTimeDTO schedule_time;
 }

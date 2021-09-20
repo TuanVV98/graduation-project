@@ -9,16 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Booking_detailDTO {
+public class EWalletDTO {
 
     private Integer id;
 
-    BookingDTO booking;
+    private Double balance;
 
-    ServiceDTO service;
-
-    VoucherDTO voucher;
-
-    private Double price;
-
+    CustomerProfileDTO customerProfileDTO;
 }

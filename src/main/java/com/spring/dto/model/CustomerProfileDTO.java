@@ -11,11 +11,11 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer_profileDTO {
+public class CustomerProfileDTO {
 
     private Integer id;
 
-    AccountsDTO accounts;
+    AccountsDTO accountsDTO;
 
     private String image;
 
@@ -25,7 +25,7 @@ public class Customer_profileDTO {
 
     private Boolean gender;
 
-    CommunesDTO communes;
+    CommunesDTO communesDTO;
 
     private String telephone;
 

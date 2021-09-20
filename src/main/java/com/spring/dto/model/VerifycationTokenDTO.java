@@ -12,11 +12,11 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Verifycation_tokenDTO {
+public class VerifycationTokenDTO {
 
     private Integer id;
 
-    AccountsDTO accounts;
+    AccountsDTO accountsDTO;
 
     private String token;
 

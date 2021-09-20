@@ -5,20 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class History_walletDTO {
+public class BookingDetailDTO {
 
     private Integer id;
 
-    private Date createAt = new Date();
+    BookingDTO bookingDTO;
 
-    E_walletDTO e_wallet;
+    ServiceDTO serviceDTO;
 
-    private String description;
+    VoucherDTO voucherDTO;
+
+    private Double price;
 
 }

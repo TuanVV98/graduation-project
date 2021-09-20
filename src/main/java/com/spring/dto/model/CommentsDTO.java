@@ -21,9 +21,9 @@ public class CommentsDTO {
 
     private Date createAt = new Date();
 
-    PostsDTO posts;
+    PostsDTO postsDTO;
 
-    AccountsDTO accounts;
+    AccountsDTO accountsDTO;
 
     private Boolean deleteAt;
 }

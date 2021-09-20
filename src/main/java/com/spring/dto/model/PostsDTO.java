@@ -21,7 +21,7 @@ public class PostsDTO {
 
     private String image;
 
-    AccountsDTO account;
+    AccountsDTO accountsDTO;
 
     private Boolean deleteAt;
 }

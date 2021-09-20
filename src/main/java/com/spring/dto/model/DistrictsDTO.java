@@ -17,5 +17,5 @@ public class DistrictsDTO {
 
     private String type;
 
-    ProvincesDTO provinces;
+    ProvincesDTO provincesDTO;
 }

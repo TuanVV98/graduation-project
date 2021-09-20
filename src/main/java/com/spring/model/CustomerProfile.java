@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "customer_profile")
-public class Customer_profile {
+public class CustomerProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -62,10 +62,10 @@ public class Customer_profile {
 
 //one to many
     @JsonIgnore
-    @OneToMany(mappedBy = "customer_profile")
+    @OneToMany(mappedBy = "customerProfile")
     List<Booking> bookings;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "customer_profile")
-    List<E_wallet> e_wallets;
+    @OneToMany(mappedBy = "customerProfile")
+    List<EWallet> eWallets;
 }
