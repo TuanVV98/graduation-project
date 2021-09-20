@@ -23,7 +23,8 @@ public class Roles {
     @Column(name = "name")
     private String name;
 
+//one to many
     @JsonIgnore
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "roles")
     List<Accounts> accounts;
 }

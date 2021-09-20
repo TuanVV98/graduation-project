@@ -36,12 +36,37 @@ public class Accounts {
 
     @ManyToOne
     @JoinColumn(name = "role_id")
-    Roles role;
+    Roles roles;
 
     @Column(name = "delete_at")
     private Boolean deleteAt;
 
+//one to many
     @JsonIgnore
-    @OneToMany(mappedBy = "like")
+    @OneToMany(mappedBy = "accounts")
     List<Likes> like;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "accounts")
+    List<Comments> comments;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "accounts")
+    List<Customer_profile> customer_profiles;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "accounts")
+    List<Dentist_profile> dentist_profiles;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "accounts")
+    List<Likes> likes;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "accounts")
+    List<Posts> posts;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "accounts")
+    List<Verifycation_token> verifycation_tokens;
 }

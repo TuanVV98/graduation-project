@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -57,4 +59,13 @@ public class Customer_profile {
 
     @Column(name = "delete_at")
     private Boolean deleteAt;
+
+//one to many
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer_profile")
+    List<Booking> bookings;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer_profile")
+    List<E_wallet> e_wallets;
 }

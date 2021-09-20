@@ -1,11 +1,13 @@
 package com.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +28,13 @@ public class Communes {
     @ManyToOne
     @JoinColumn(name = "district_id")
     Districts districts;
+
+//one to many
+    @JsonIgnore
+    @OneToMany(mappedBy = "communes")
+    List<Customer_profile> customer_profiles;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "communes")
+    List<Dentist_profile> dentist_profiles;
 }

@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,13 +17,6 @@ import java.util.Date;
 @Entity
 @Table(name = "schedule_time")
 public class Schedule_time {
-//    id bigint not null primary key auto_increment,
-//    day_of_week datetime,
-//    start datetime,
-//    end datetime,
-//    dentist_id bigint,
-//    delete_at bit,
-//    constraint FK_schedule_time_dentist_profile foreign key(dentist_id) references dentist_profile(id)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -45,4 +40,9 @@ public class Schedule_time {
 
     @Column(name = "delete_at")
     private Boolean deleteAt;
+
+// one to many
+    @JsonIgnore
+    @OneToMany(mappedBy = "schedule_time")
+    List<Booking> bookings;
 }

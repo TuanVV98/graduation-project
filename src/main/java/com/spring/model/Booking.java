@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,4 +42,9 @@ public class Booking {
     @ManyToOne()
     @JoinColumn(name = "schedule_time_id")
     Schedule_time schedule_time;
+
+//one to many
+    @JsonIgnore
+    @OneToMany(mappedBy = "booking")
+    List<Booking_detail> booking_details;
 }

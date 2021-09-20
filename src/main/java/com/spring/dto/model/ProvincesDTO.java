@@ -1,4 +1,4 @@
-package com.spring.model;
+package com.spring.dto.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -13,23 +13,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "provinces")
-public class Provinces {
-    @Id
-    @Column(name = "id")
+public class ProvincesDTO {
+
     private String id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "type")
     private String type;
-
-//one to many
-    @JsonIgnore
-    @OneToMany(mappedBy = "provinces")
-    List<Districts> districts;
-
 
 }
