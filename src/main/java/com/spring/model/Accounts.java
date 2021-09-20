@@ -1,6 +1,7 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.AccountsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -71,7 +72,7 @@ public class Accounts {
     @OneToMany(mappedBy = "accounts")
     List<VerifycationToken> verifycationTokens;
 
-    public Accounts convertEntityToDTO() {
-        return new ModelMapper().map(this, Accounts.class);
+    public AccountsDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, AccountsDTO.class);
     }
 }
