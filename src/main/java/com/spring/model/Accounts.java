@@ -1,12 +1,12 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.AccountsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +43,7 @@ public class Accounts {
     @Column(name = "delete_at")
     private Boolean deleteAt;
 
-//one to many
+    //one to many
     @JsonIgnore
     @OneToMany(mappedBy = "accounts")
     List<Likes> like;
@@ -72,8 +72,8 @@ public class Accounts {
     @OneToMany(mappedBy = "accounts")
     List<VerifycationToken> verifycationTokens;
 
-    public Accounts convertEntityToDTO() {
-        return new ModelMapper().map(this, Accounts.class);
+    public AccountsDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, AccountsDTO.class);
     }
 
 }

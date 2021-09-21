@@ -1,8 +1,9 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.dto.model.CommunesDTO;
 import com.spring.dto.model.CustomerProfileDTO;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +20,12 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "customer_profile")
+@ApiModel(value = "Customer model")
 public class CustomerProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @ApiModelProperty(notes = "The database generated Customer ID")
     private Long id;
 
     @ManyToOne
