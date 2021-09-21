@@ -1,13 +1,14 @@
 package com.spring.dto.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.model.Posts;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -15,13 +16,20 @@ import java.util.List;
 @AllArgsConstructor
 public class PostsDTO {
 
-    private Integer id;
+    @NotNull
+    private Long id;
 
     private String content;
 
     private String image;
 
+    @NotBlank
     AccountsDTO accountsDTO;
 
     private Boolean deleteAt;
+
+    public Posts convertDTOToEntity() {
+        return new ModelMapper().map(this, Posts.class);
+    }
+
 }

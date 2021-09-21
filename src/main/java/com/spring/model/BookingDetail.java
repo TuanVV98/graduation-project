@@ -1,9 +1,12 @@
 package com.spring.model;
 
+import com.spring.dto.model.BookingDTO;
+import com.spring.dto.model.BookingDetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 
@@ -16,7 +19,7 @@ import javax.persistence.*;
 public class BookingDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "booking_id")
@@ -32,5 +35,9 @@ public class BookingDetail {
 
     @Column(name = "price")
     private Double price;
+
+    public BookingDetailDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, BookingDetailDTO.class);
+    }
 
 }

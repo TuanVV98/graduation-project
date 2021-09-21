@@ -1,10 +1,13 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.PostsDTO;
+import com.spring.dto.model.ProvincesDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,5 +34,7 @@ public class Provinces {
     @OneToMany(mappedBy = "provinces")
     List<Districts> districts;
 
-
+    public ProvincesDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, ProvincesDTO.class);
+    }
 }

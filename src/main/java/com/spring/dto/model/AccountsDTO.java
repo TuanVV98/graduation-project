@@ -1,10 +1,13 @@
 package com.spring.dto.model;
 
+import com.spring.model.Accounts;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Getter
@@ -13,17 +16,25 @@ import java.util.Date;
 @AllArgsConstructor
 public class AccountsDTO {
 
-    private Integer id;
+    @NotNull
+    private Long id;
 
-    private String password;
-
+    @NotEmpty(message = "Không được để trống email")
+    @Email(message = "Sai định dạng")
     private String email;
 
+    @NotBlank(message = "Không được để trống sđt")
+    @Size(max = 10)
     private String telephone;
 
     private Date updateAt = new Date();
 
+    @NotBlank
     RolesDTO rolesDTO;
 
     private Boolean deleteAt;
+
+    public Accounts convertDTOToEntity() {
+        return new ModelMapper().map(this, Accounts.class);
+    }
 }

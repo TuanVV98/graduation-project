@@ -1,9 +1,12 @@
 package com.spring.model;
 
+import com.spring.dto.model.ServiceDTO;
+import com.spring.dto.model.VerifycationTokenDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,7 +21,7 @@ public class VerifycationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -41,4 +44,8 @@ public class VerifycationToken {
     @Temporal(TemporalType.DATE)
     @Column(name = "cerified")
     private Date cerified = new Date();
+
+    public VerifycationTokenDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, VerifycationTokenDTO.class);
+    }
 }

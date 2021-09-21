@@ -1,10 +1,13 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.RolesDTO;
+import com.spring.dto.model.ScheduleTimeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,7 +23,7 @@ public class ScheduleTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "day_of_week")
@@ -45,4 +48,8 @@ public class ScheduleTime {
     @JsonIgnore
     @OneToMany(mappedBy = "scheduleTime")
     List<Booking> bookings;
+
+    public ScheduleTimeDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, ScheduleTimeDTO.class);
+    }
 }

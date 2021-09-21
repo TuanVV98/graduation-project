@@ -1,11 +1,14 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.DentistProfileDTO;
+import com.spring.dto.model.DistrictsDTO;
 import jdk.dynalink.linker.LinkerServices;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,4 +38,8 @@ public class Districts {
     @JsonIgnore
     @OneToMany(mappedBy = "districts")
     List<Communes> communes;
+
+    public DistrictsDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, DistrictsDTO.class);
+    }
 }

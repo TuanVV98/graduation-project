@@ -1,10 +1,13 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.VerifycationTokenDTO;
+import com.spring.dto.model.VoucherDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -49,4 +52,8 @@ public class Voucher {
     @JsonIgnore
     @OneToMany(mappedBy = "voucher")
     List<BookingDetail> bookingDetails;
+
+    public VoucherDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, VoucherDTO.class);
+    }
 }

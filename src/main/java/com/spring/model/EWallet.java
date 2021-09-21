@@ -1,10 +1,13 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.DistrictsDTO;
+import com.spring.dto.model.EWalletDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,7 +22,7 @@ public class EWallet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "balance")
     private Double balance;
@@ -32,4 +35,8 @@ public class EWallet {
     @JsonIgnore
     @OneToMany(mappedBy = "eWallet")
     List<HistoryWallet> historyWallets;
+
+    public EWalletDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, EWalletDTO.class);
+    }
 }

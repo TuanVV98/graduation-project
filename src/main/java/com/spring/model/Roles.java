@@ -1,10 +1,13 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.ProvincesDTO;
+import com.spring.dto.model.RolesDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.List;
@@ -27,4 +30,8 @@ public class Roles {
     @JsonIgnore
     @OneToMany(mappedBy = "roles")
     List<Accounts> accounts;
+
+    public RolesDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, RolesDTO.class);
+    }
 }

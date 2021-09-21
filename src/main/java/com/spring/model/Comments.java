@@ -1,9 +1,12 @@
 package com.spring.model;
 
+import com.spring.dto.model.BookingDetailDTO;
+import com.spring.dto.model.CommentsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,7 +20,7 @@ import java.util.Date;
 public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "content")
     private String content;
@@ -39,4 +42,8 @@ public class Comments {
 
     @Column(name = "delete_at")
     private Boolean deleteAt;
+
+    public CommentsDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, CommentsDTO.class);
+    }
 }

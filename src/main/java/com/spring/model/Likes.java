@@ -1,6 +1,9 @@
 package com.spring.model;
 
+import com.spring.dto.model.HistoryWalletDTO;
+import com.spring.dto.model.LikesDTO;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +17,7 @@ import java.util.Date;
 public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
@@ -27,5 +30,9 @@ public class Likes {
     @ManyToOne
     @JoinColumn(name = "account_id")
     Accounts accounts;
+
+    public LikesDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, LikesDTO.class);
+    }
 
 }

@@ -1,10 +1,12 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.BookingDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,7 +21,7 @@ import java.util.List;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "dentist_id")
@@ -47,4 +49,8 @@ public class Booking {
     @JsonIgnore
     @OneToMany(mappedBy = "booking")
     List<BookingDetail> bookingDetails;
+
+    public BookingDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, BookingDTO.class);
+    }
 }

@@ -1,10 +1,13 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.LikesDTO;
+import com.spring.dto.model.PostsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,7 +21,7 @@ import java.util.List;
 public class Posts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "content")
     private String content;
@@ -41,4 +44,8 @@ public class Posts {
     @JsonIgnore
     @OneToMany(mappedBy = "posts")
     List<Likes> likes;
+
+    public PostsDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, PostsDTO.class);
+    }
 }

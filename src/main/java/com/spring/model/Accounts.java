@@ -1,10 +1,12 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.AccountsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,9 +19,10 @@ import java.util.List;
 @Entity
 @Table(name = "accounts")
 public class Accounts {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "password")
     private String password;
@@ -44,10 +47,6 @@ public class Accounts {
 //one to many
     @JsonIgnore
     @OneToMany(mappedBy = "accounts")
-    List<Likes> like;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "accounts")
     List<Comments> comments;
 
     @JsonIgnore
@@ -69,4 +68,8 @@ public class Accounts {
     @JsonIgnore
     @OneToMany(mappedBy = "accounts")
     List<VerifycationToken> verifycationTokens;
+
+    public AccountsDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, AccountsDTO.class);
+    }
 }

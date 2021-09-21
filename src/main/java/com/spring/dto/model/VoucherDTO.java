@@ -1,14 +1,16 @@
 package com.spring.dto.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.model.Voucher;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
-import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,12 +18,16 @@ import java.util.List;
 @AllArgsConstructor
 public class VoucherDTO {
 
+    @NotBlank(message = "Không được để trống")
     private String id;
 
+    @NotBlank(message = "Không được để trống nội dung")
     private String content;
 
     private String image;
 
+    @NotNull
+    @DecimalMin(value = "0")
     private Double sale;
 
     private Date start = new Date();
@@ -31,5 +37,9 @@ public class VoucherDTO {
     private Date createAt = new Date();
 
     private Boolean deleteAt;
+
+    public Voucher convertDTOToEntity() {
+        return new ModelMapper().map(this, Voucher.class);
+    }
 
 }
