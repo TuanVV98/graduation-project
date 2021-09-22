@@ -22,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ServiceDTO {
 
-    @NotNull
+
     private Long id;
 
     @NotBlank(message = "Không được để trống nội dung")

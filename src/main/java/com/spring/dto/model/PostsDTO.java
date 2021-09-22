@@ -16,8 +16,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class PostsDTO {
 
-    @NotNull
+
     private Long id;
+
+    private String title;
 
     private String content;
 
