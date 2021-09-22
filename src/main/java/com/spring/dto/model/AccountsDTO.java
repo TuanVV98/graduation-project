@@ -16,7 +16,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class AccountsDTO {
 
-    @NotNull
     private Long id;
 
     @NotEmpty(message = "Không được để trống email")

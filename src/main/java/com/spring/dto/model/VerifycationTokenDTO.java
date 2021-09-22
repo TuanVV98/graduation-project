@@ -18,7 +18,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class VerifycationTokenDTO {
 
-    @NotNull
     private Long id;
 
     @NotEmpty

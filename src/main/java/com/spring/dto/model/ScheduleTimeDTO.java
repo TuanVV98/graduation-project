@@ -17,7 +17,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class ScheduleTimeDTO {
 
-    @NotNull
     private Long id;
 
     private Date dayOfWeek = new Date();

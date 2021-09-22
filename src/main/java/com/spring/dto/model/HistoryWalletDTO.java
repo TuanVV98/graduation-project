@@ -17,7 +17,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class HistoryWalletDTO {
 
-    @NotNull
     private Long id;
 
     private Date createAt = new Date();

@@ -17,7 +17,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class CommentsDTO {
 
-    @NotNull
     private Long id;
 
     @NotBlank(message = "Không được để trống")

@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class EWalletDTO {
 
-    @NotNull
     private Long id;
 
     private Double balance;

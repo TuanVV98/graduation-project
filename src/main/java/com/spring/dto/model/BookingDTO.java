@@ -17,7 +17,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class BookingDTO {
 
-    @NotNull
     private Long id;
 
     @NotBlank

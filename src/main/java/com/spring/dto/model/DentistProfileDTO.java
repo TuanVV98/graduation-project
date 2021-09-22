@@ -18,7 +18,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class DentistProfileDTO {
 
-    @NotNull
     private Long id;
 
     @NotBlank
