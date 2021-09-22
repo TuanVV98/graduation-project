@@ -8,4 +8,8 @@ public interface BookingService {
     List<BookingDTO> findAll();
 
     BookingDTO findById(Long id);
+
+    BookingDTO create(BookingDTO bookingDTO);
+
+    BookingDTO update(BookingDTO bookingDTO);
 }

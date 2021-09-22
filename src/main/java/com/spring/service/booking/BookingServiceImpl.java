@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,4 +38,27 @@ public class BookingServiceImpl implements BookingService{
         }
         return null;
     }
+
+    @Override
+    public BookingDTO create(BookingDTO bookingDTO) {
+        Booking entity = bookingDTO.convertDTOToEntity();
+        entity.setBookingDate(new Date());
+        entity.setStatus(0); //0-dang cho 1-dat lich thanh cong 2-dat lich that bai
+        bookingRepository.save(entity);
+        bookingDTO.setId(entity.getId());
+        return bookingDTO;
+    }
+
+    @Override
+    public BookingDTO update(BookingDTO bookingDTO) {
+        Optional<Booking> optional = bookingRepository.findById(bookingDTO.getId());
+        if(optional.isPresent()){
+            Booking entity = bookingDTO.convertDTOToEntity();
+            bookingRepository.save(entity);
+            bookingDTO = entity.convertEntityToDTO();
+        }
+        return bookingDTO;
+    }
+
+
 }
