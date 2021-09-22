@@ -20,20 +20,22 @@ import java.util.List;
 @AllArgsConstructor
 public class PostsDTO {
 
-    @NotNull
-    private Long id;
+	@NotNull
+	private Long id;
+	@NotBlank
+	private String title;
+	
+	private String content;
 
-    private String content;
+	private String image;
 
-    private String image;
+	@NotBlank
+	AccountsDTO accountsDTO;
 
-    @NotBlank
-    AccountsDTO accountsDTO;
+	private Boolean deleteAt;
 
-    private Boolean deleteAt;
-
-    public Posts convertDTOToEntity() {
-        return new ModelMapper().map(this, Posts.class);
-    }
+	public Posts convertDTOToEntity() {
+		return new ModelMapper().map(this, Posts.class);
+	}
 
 }
