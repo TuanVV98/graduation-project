@@ -19,11 +19,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class DentistProfileDTO {
 
-    @NotNull
     private Long id;
 
     @NotBlank
-    AccountsDTO accountsDTO;
+    private Long accountsDTO;
 
     private String image;
 
@@ -40,7 +39,7 @@ public class DentistProfileDTO {
     private Boolean gender;
 
     @NotBlank
-    CommunesDTO communesDTO;
+    private Long communesDTO;
 
     @NotBlank(message = "Không được để trống số điện thoại")
     @Size(max = 30)

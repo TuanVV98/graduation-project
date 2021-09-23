@@ -1,6 +1,7 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.config.JpaAuditingConfig;
 import com.spring.dto.model.CustomerProfileDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,6 +10,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,7 +25,9 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "customer_profile")
+@EntityListeners(AuditingEntityListener.class)
 @ApiModel(value = "Customer model")
+
 public class CustomerProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,11 +64,13 @@ public class CustomerProfile {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
-    private Date createAt = new Date();
+    @CreatedDate
+    private Date createAt ;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "update_at")
-    private Date updateAt = new Date();
+    @LastModifiedDate
+    private Date updateAt;
 
     @Column(name = "delete_at")
     private Boolean deleteAt;

@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    private CustomerProfileRepository customerRepository;
-    private MapperUtil mapperList;
+    private final CustomerProfileRepository customerRepository;
+    private final MapperUtil mapperList;
     @Autowired
     public CustomerServiceImpl(CustomerProfileRepository customerRepository, MapperUtil mapperList){
         this.customerRepository = customerRepository;
@@ -22,14 +22,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
     @Override
     public List<CustomerProfileDTO> getAll() {
-        return mapperList.mapList(customerRepository.findAll(), CustomerProfileDTO.class);
+        return mapperList.mapList(customerRepository.findByDeleteAtIsFalse(), CustomerProfileDTO.class);
+    }
+
+    @Override
+    public List<CustomerProfileDTO> getAllOnRecycleBin() {
+        return mapperList.mapList(customerRepository.findByDeleteAtIsTrue(), CustomerProfileDTO.class);
     }
 
     @Override
     public CustomerProfileDTO getById(Long id) {
-        CustomerProfileDTO dto = customerRepository.findById(id).
+        return customerRepository.findById(id).
                 orElseThrow(() -> new NotFoundException("Customer is not found")).convertEntityToDTO();
-        return dto;
     }
 
     @Override
@@ -41,14 +45,22 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerProfileDTO update(Long id, CustomerProfileDTO dto) {
         CustomerProfile profile = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer is not found"));
+            dto.setId(profile.getId());
+            CustomerProfile entity = dto.convertDTOToEntity();
+            return customerRepository.save(entity).convertEntityToDTO();
+    }
 
-        return customerRepository.save(profile).convertEntityToDTO();
+    @Override
+    public void updateDeleted(Long id, Boolean deleted) {
+        CustomerProfile entity = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer is not found"));
+            entity.setDeleteAt(deleted);
+            customerRepository.save(entity);
     }
 
     @Override
     public void deleteById(Long id) {
         CustomerProfile entity = customerRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Customer is not found"));
-        customerRepository.delete(entity);
+        customerRepository.deleteById(id);
     }
 }

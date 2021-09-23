@@ -20,11 +20,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class CustomerProfileDTO {
 
-    @NotNull
     private Long id;
 
     @NotBlank
-    AccountsDTO accountsDTO;
+    private Long accountsDTO;
 
     private String image;
 
@@ -38,7 +37,7 @@ public class CustomerProfileDTO {
     private Boolean gender;
 
     @NotBlank
-    CommunesDTO communesDTO;
+    private Long communesDTO;
 
     @NotBlank(message = "Không được để trống số điện thoại")
     @Size(max = 30)

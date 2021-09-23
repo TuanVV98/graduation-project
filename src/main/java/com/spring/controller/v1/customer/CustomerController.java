@@ -1,7 +1,8 @@
-package com.spring.controller.v1;
+package com.spring.controller.v1.customer;
 
 import com.spring.dto.model.CustomerProfileDTO;
 import com.spring.dto.response.Response;
+import com.spring.model.CustomerProfile;
 import com.spring.service.customer.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +22,7 @@ import java.util.List;
 @Api(value = "Customer profile Apis")
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @Autowired
     public CustomerController(CustomerService customerService) {
@@ -41,7 +42,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getAll());
     }
 
-    @ApiOperation(value = "Find Customer by id", response = List.class)
+    @ApiOperation(value = "Find Customer by id", response = Object.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 401, message = "Unconfirmed"),
@@ -54,7 +55,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getById(id));
     }
 
-    @ApiOperation(value = "Create Customer", response = List.class)
+    @ApiOperation(value = "Create Customer", response = Object.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 401, message = "Unconfirmed"),
@@ -62,19 +63,17 @@ public class CustomerController {
             @ApiResponse(code = 404, message = "Page not found")
     })
     @PostMapping("")
-    public ResponseEntity<Response<CustomerProfileDTO>> createCustomer(@Valid CustomerProfileDTO dto, BindingResult result){
-        Response response = new Response();
+    public ResponseEntity<Response<CustomerProfileDTO>> createCustomer(@Valid @RequestBody CustomerProfileDTO dto, BindingResult result){
+        Response<CustomerProfileDTO> response = new Response<>();
         if(result.hasErrors()){
             result.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
             return  ResponseEntity.badRequest().body(response);
         }
-        Date currentDate = new Date();
-        dto.setCreateAt(currentDate);
         response.setData(this.customerService.add(dto));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "Update Customer", response = List.class)
+    @ApiOperation(value = "Update Customer", response = Object.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 401, message = "Unconfirmed"),
@@ -82,19 +81,29 @@ public class CustomerController {
             @ApiResponse(code = 404, message = "Page not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Response<CustomerProfileDTO>> updateCustomer(@PathVariable("id") Long id, @Valid CustomerProfileDTO dto, BindingResult result){
-        Response response = new Response();
+    public ResponseEntity<Response<CustomerProfileDTO>> updateCustomer(@PathVariable("id") Long id, @Valid @RequestBody CustomerProfileDTO dto, BindingResult result){
+        Response<CustomerProfileDTO> response = new Response<>();
         if(result.hasErrors()){
             result.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
             return  ResponseEntity.badRequest().body(response);
         }
-        Date currentDate = new Date();
-        dto.setUpdateAt(currentDate);
         response.setData(this.customerService.update(id, dto));
         return ResponseEntity.ok(response);
     }
 
-    @ApiOperation(value = "Delete Customer by id", response = List.class)
+    @ApiOperation(value = "Sort delete or restore Customer by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success"),
+            @ApiResponse(code = 401, message = "Unconfirmed"),
+            @ApiResponse(code = 403, message = "Unauthorized access"),
+            @ApiResponse(code = 404, message = "Page not found")
+    })
+    @PatchMapping("/{id}")
+    public void sortDeleteDentist(@PathVariable("id") Long id, @RequestParam Boolean deleted){
+        customerService.updateDeleted(id, deleted);
+    }
+
+    @ApiOperation(value = "Hard delete Customer by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 401, message = "Unconfirmed"),
