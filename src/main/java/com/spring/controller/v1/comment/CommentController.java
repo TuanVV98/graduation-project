@@ -99,7 +99,7 @@ public class CommentController {
 
     //read all comment by post_id
     @GetMapping("/post")
-    public ResponseEntity<Response<List<CommentsDTO>> > getAllCommentByPost
+    public ResponseEntity<Response<List<CommentsDTO>> > getAllCommentByPostId
     (
             @RequestParam Long postsId
     ){

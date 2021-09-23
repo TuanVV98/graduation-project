@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -29,13 +30,19 @@ public class ScheduleTime {
     @Column(name = "day_of_week")
     private Date dayOfWeek = new Date();
 
-    @Temporal(TemporalType.TIME)
+//    @Temporal(TemporalType.TIME)
+//    private Date start = new Date();
     @Column(name = "start")
-    private Date start = new Date();
+    private  String start;
 
-    @Temporal(TemporalType.TIME)
+
+
+//    @Temporal(TemporalType.TIME)
+//    private Date end = new Date();
     @Column(name = "end")
-    private Date end = new Date();
+    private  String end;
+
+
 
     @ManyToOne
     @JoinColumn(name = "dentist_id")

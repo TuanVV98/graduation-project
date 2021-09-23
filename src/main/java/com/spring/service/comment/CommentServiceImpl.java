@@ -44,9 +44,11 @@ public class CommentServiceImpl implements CommentService{
         Optional<Comments> optional=this.commentsRepo.findById(dto.getId());
         if(optional.isPresent()){
             Comments entity=dto.convertDTOToEntity();
+            entity.setDeleteAt(false);
             this.commentsRepo.save(entity);
+            return entity.convertEntityToDTO();
         }
-        return dto;
+        return null;
     }
 
     @Override
