@@ -20,6 +20,7 @@ public class LikesController {
     }
 
     //tim like theo acc vs post(dùng để hiển thị nút like của acc "like hay chưa like")
+    //xủ lý fontend nếu tìm thấy - delete, nếu ko tìm thấy - create
     @GetMapping("/acc/{ida}/post/{idp}")
     public LikesDTO getLikes(@PathVariable("ida") Long ida, @PathVariable("idp") Long idp){
         return likesService.getLikeByAccAndPost(ida, idp);
@@ -33,7 +34,7 @@ public class LikesController {
 
     //delete
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Long id){
-        likesService.delete(id);
+    public LikesDTO delete(@PathVariable("id") Long id){
+        return likesService.delete(id);
     }
 }

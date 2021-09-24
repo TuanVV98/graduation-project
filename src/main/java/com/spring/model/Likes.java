@@ -13,7 +13,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "likes")
+@Table(name = "likes", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"post_id", "account_id"})
+})
 public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

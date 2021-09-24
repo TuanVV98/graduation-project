@@ -31,8 +31,8 @@ public class BookingDetailController {
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Long id){
-        bookingDetailService.delete(id);
+    public BookingDetailDTO delete(@PathVariable("id") Long id){
+        return bookingDetailService.delete(id);
     }
 
 }

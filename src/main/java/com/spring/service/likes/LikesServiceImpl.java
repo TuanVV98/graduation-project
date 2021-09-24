@@ -2,7 +2,9 @@ package com.spring.service.likes;
 
 import com.spring.dto.model.LikesDTO;
 import com.spring.model.Likes;
+import com.spring.model.Posts;
 import com.spring.repository.LikesRepository;
+import com.spring.repository.PostsRepository;
 import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,13 +40,15 @@ public class LikesServiceImpl implements LikesService{
     }
 
     @Override
-    public void delete(Long id) {
+    public LikesDTO delete(Long id) {
         Optional<Likes> optional = likesRepository.findById(id);
         if(optional.isPresent()){
             Likes entity = optional.get();
             LikesDTO dto = entity.convertEntityToDTO();
             likesRepository.delete(entity);
+            return dto;
         }
+        return null;
     }
 
     @Override

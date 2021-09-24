@@ -47,12 +47,14 @@ public class BookingDetailServiceImpl implements BookingDetailService{
     }
 
     @Override
-    public void delete(Long id) {
+    public BookingDetailDTO delete(Long id) {
         Optional<BookingDetail> optional = bookingDetailRepository.findById(id);
         if(optional.isPresent()){
             BookingDetail entity = optional.get();
             BookingDetailDTO dto = entity.convertEntityToDTO();
             bookingDetailRepository.delete(entity);
+            return dto;
         }
+        return null;
     }
 }

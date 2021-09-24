@@ -26,7 +26,7 @@ public class ScheduleTimeDTO {
     private Date end = new Date();
 
     @NotBlank
-    DentistProfileDTO dentistProfileDTO;
+    DentistProfileDTO dentistProfile;
 
     private Boolean deleteAt;
 

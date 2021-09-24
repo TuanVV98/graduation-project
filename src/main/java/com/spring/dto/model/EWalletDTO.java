@@ -21,7 +21,7 @@ public class EWalletDTO {
     private Double balance;
 
     @NotBlank
-    CustomerProfileDTO customerProfileDTO;
+    CustomerProfileDTO customerProfile;
 
     public EWallet convertDTOToEntity() {
         return new ModelMapper().map(this, EWallet.class);

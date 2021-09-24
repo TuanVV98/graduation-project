@@ -22,7 +22,7 @@ public class HistoryWalletDTO {
     private Date createAt = new Date();
 
     @NotBlank
-    EWalletDTO eWalletDTO;
+    EWalletDTO eWallet;
 
     private String description;
 

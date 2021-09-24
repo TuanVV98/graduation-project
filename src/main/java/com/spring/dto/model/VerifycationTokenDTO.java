@@ -21,7 +21,7 @@ public class VerifycationTokenDTO {
     private Long id;
 
     @NotEmpty
-    AccountsDTO accountsDTO;
+    AccountsDTO accounts;
 
     @NotBlank
     private String token;

@@ -21,7 +21,7 @@ public class CustomerProfileDTO {
     private Long id;
 
     @NotBlank
-    AccountsDTO accountsDTO;
+    AccountsDTO accounts;
 
     private String image;
 
@@ -35,7 +35,7 @@ public class CustomerProfileDTO {
     private Boolean gender;
 
     @NotBlank
-    CommunesDTO communesDTO;
+    CommunesDTO communes;
 
     @NotBlank(message = "Không được để trống số điện thoại")
     @Size(max = 30)

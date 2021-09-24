@@ -10,7 +10,7 @@ public interface LikesService {
 
     LikesDTO create(LikesDTO likesDTO);
 
-    void delete(Long id);
+    LikesDTO delete(Long id);
 
     LikesDTO getLikeByAccAndPost(Long ida, Long idp);
 }

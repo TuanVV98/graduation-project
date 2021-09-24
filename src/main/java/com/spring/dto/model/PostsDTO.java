@@ -25,7 +25,7 @@ public class PostsDTO {
     private String image;
 
     @NotBlank
-    AccountsDTO accountsDTO;
+    AccountsDTO accounts;
 
     private Boolean deleteAt;
 

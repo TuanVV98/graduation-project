@@ -25,7 +25,7 @@ public class DistrictsDTO {
     private String type;
 
     @NotBlank
-    ProvincesDTO provincesDTO;
+    ProvincesDTO provinces;
 
     public Districts convertDTOToEntity() {
         return new ModelMapper().map(this, Districts.class);

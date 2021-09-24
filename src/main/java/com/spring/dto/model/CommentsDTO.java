@@ -27,10 +27,10 @@ public class CommentsDTO {
     private Date createAt = new Date();
 
     @NotBlank
-    PostsDTO postsDTO;
+    PostsDTO posts;
 
     @NotBlank
-    AccountsDTO accountsDTO;
+    AccountsDTO accounts;
 
     private Boolean deleteAt;
 

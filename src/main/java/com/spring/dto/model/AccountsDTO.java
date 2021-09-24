@@ -29,7 +29,7 @@ public class AccountsDTO {
     private Date updateAt = new Date();
 
     @NotBlank
-    RolesDTO rolesDTO;
+    RolesDTO roles;
 
     private Boolean deleteAt;
 

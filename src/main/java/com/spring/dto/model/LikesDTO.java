@@ -22,10 +22,10 @@ public class LikesDTO {
     private Date createAt = new Date();
 
     @NotBlank
-    PostsDTO postsDTO;
+    PostsDTO posts;
 
     @NotBlank
-    AccountsDTO accountsDTO;
+    AccountsDTO accounts;
 
     public Likes convertDTOToEntity() {
         return new ModelMapper().map(this, Likes.class);
