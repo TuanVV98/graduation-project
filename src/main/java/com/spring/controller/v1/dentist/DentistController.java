@@ -75,6 +75,7 @@ public class DentistController {
     @PostMapping("")
     public ResponseEntity<Response<DentistProfileDTO>> createDentist(@Valid @RequestBody DentistProfileDTO dto, BindingResult result){
         Response<DentistProfileDTO> response = new Response<>();
+
         if(result.hasErrors()){
             result.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
             return ResponseEntity.badRequest().body(response);

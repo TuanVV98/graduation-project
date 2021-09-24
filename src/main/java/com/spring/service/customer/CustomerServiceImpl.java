@@ -2,7 +2,9 @@ package com.spring.service.customer;
 
 import com.spring.dto.model.CustomerProfileDTO;
 import com.spring.exception.NotFoundException;
+import com.spring.model.Accounts;
 import com.spring.model.CustomerProfile;
+import com.spring.repository.AccountRepository;
 import com.spring.repository.CustomerProfileRepository;
 import com.spring.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerProfileRepository customerRepository;
     private final MapperUtil mapperList;
+    private final AccountRepository accountRepository;
     @Autowired
-    public CustomerServiceImpl(CustomerProfileRepository customerRepository, MapperUtil mapperList){
+    public CustomerServiceImpl(CustomerProfileRepository customerRepository, MapperUtil mapperList, AccountRepository accountRepository){
         this.customerRepository = customerRepository;
         this.mapperList = mapperList;
+        this.accountRepository = accountRepository;
     }
     @Override
     public List<CustomerProfileDTO> getAll() {
@@ -39,6 +43,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerProfileDTO add(CustomerProfileDTO dto) {
         CustomerProfile profile = dto.convertDTOToEntity();
+        Accounts accounts = accountRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException("Accounts is not found"));
+        profile.setAccounts(accounts);
         return customerRepository.save(profile).convertEntityToDTO();
     }
 

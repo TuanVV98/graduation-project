@@ -22,14 +22,14 @@ public class CustomerProfileDTO {
 
     private Long id;
 
-    @NotBlank
+    @NotNull
     private Long accountsDTO;
 
     private String image;
 
     @NotBlank(message = "Không được để trống họ tên")
     @Size(max = 30)
-    private String fullname;
+    private String fullName;
 
     private Date birthday = new Date();
 
@@ -37,7 +37,7 @@ public class CustomerProfileDTO {
     private Boolean gender;
 
     @NotBlank
-    private Long communesDTO;
+    private String communesDTO;
 
     @NotBlank(message = "Không được để trống số điện thoại")
     @Size(max = 30)

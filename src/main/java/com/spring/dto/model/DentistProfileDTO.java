@@ -2,6 +2,7 @@ package com.spring.dto.model;
 
 import com.spring.model.CustomerProfile;
 import com.spring.model.DentistProfile;
+import com.spring.validation.IdCard;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,11 @@ public class DentistProfileDTO {
 
     private Long id;
 
-    @NotBlank
+    @NotNull
     private Long accountsDTO;
 
     private String image;
-
+    @IdCard(message = "Căn cước công dân không hợp lệ")
     @NotBlank(message = "Không được để trống cccd")
     private String cccd;
 
@@ -39,7 +40,7 @@ public class DentistProfileDTO {
     private Boolean gender;
 
     @NotBlank
-    private Long communesDTO;
+    private String communesDTO;
 
     @NotBlank(message = "Không được để trống số điện thoại")
     @Size(max = 30)

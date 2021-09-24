@@ -3,6 +3,7 @@ package com.spring.controller.v1.customer;
 import com.spring.dto.model.CustomerProfileDTO;
 import com.spring.dto.response.Response;
 import com.spring.model.CustomerProfile;
+import com.spring.repository.CustomerProfileRepository;
 import com.spring.service.customer.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +12,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +25,11 @@ import java.util.List;
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
     private final CustomerService customerService;
-
+    CustomerProfileRepository repo;
     @Autowired
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
-
     @ApiOperation(value = "Get all Customer", response = List.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
@@ -36,9 +37,9 @@ public class CustomerController {
             @ApiResponse(code = 403, message = "Unauthorized access"),
             @ApiResponse(code = 404, message = "Page not found")
     })
+    @PreAuthorize("hasAnyRole('ADMIN, DENTIST')")
     @GetMapping("")
     public ResponseEntity<List<CustomerProfileDTO>> getAllCustomer(){
-
         return ResponseEntity.ok(customerService.getAll());
     }
 
