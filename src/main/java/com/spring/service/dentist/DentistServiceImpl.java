@@ -3,34 +3,31 @@ package com.spring.service.dentist;
 import com.spring.dto.model.DentistProfileDTO;
 import com.spring.exception.NotFoundException;
 import com.spring.model.Accounts;
-import com.spring.model.Communes;
 import com.spring.model.DentistProfile;
 import com.spring.repository.AccountRepository;
-import com.spring.repository.CommunesRepository;
 import com.spring.repository.DentistProfileRepository;
 import com.spring.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class DentistServiceImpl implements DentistService{
 
     private final DentistProfileRepository dentistProfileRepository;
     private final MapperUtil mapperList;
     private final AccountRepository accountRepository;
-    private final CommunesRepository communesRepository;
     @Autowired
     public DentistServiceImpl(
             DentistProfileRepository dentistProfileRepository,
             MapperUtil mapperList,
-            AccountRepository accountRepository,
-            CommunesRepository communesRepository){
+            AccountRepository accountRepository){
         this.dentistProfileRepository = dentistProfileRepository;
         this.mapperList = mapperList;
         this.accountRepository = accountRepository;
-        this.communesRepository = communesRepository;
     }
     @Override
     public List<DentistProfileDTO> getAll() {

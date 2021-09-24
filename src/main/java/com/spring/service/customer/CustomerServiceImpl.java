@@ -9,10 +9,12 @@ import com.spring.repository.CustomerProfileRepository;
 import com.spring.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerProfileRepository customerRepository;
