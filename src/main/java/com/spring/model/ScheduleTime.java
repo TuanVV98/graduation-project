@@ -30,18 +30,13 @@ public class ScheduleTime {
     @Column(name = "day_of_week")
     private Date dayOfWeek = new Date();
 
-//    @Temporal(TemporalType.TIME)
-//    private Date start = new Date();
+
     @Column(name = "start")
     private  String start;
 
 
-
-//    @Temporal(TemporalType.TIME)
-//    private Date end = new Date();
     @Column(name = "end")
     private  String end;
-
 
 
     @ManyToOne

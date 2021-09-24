@@ -1,6 +1,10 @@
 package com.spring.dto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.spring.model.ScheduleTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +27,8 @@ public class ScheduleTimeDTO {
 
     private Long id;
 
-
+    @NotNull(message = "Không để trống dayOfWeek")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dayOfWeek = new Date();
 
 
