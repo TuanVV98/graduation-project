@@ -14,4 +14,10 @@ public interface BookingService {
     BookingDTO update(BookingDTO bookingDTO);
 
     BookingDTO findByScheduleTime(Long id);
+
+    List<BookingDTO> findByCustomerId(Long id);
+
+    List<BookingDTO> findByDentistId(Long id);
+
+    BookingDTO updateStatus(Long id, Integer status);
 }

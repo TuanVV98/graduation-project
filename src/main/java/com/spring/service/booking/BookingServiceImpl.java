@@ -71,5 +71,40 @@ public class BookingServiceImpl implements BookingService{
         return null;
     }
 
+    @Override
+    public List<BookingDTO> findByCustomerId(Long id) {
+        List<BookingDTO> dtoList = new ArrayList<>();
+        List<Booking> entityList = bookingRepository.findByCustomerId(id);
+        for (Booking entity : entityList){
+            BookingDTO dto = entity.convertEntityToDTO();
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<BookingDTO> findByDentistId(Long id) {
+        List<BookingDTO> dtoList = new ArrayList<>();
+        List<Booking> entityList = bookingRepository.findByDentistId(id);
+        for (Booking entity : entityList){
+            BookingDTO dto = entity.convertEntityToDTO();
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    @Override
+    public BookingDTO updateStatus(Long id, Integer status) {
+        Optional<Booking> optional = bookingRepository.findById(id);
+        BookingDTO dto = new BookingDTO();
+        if(optional.isPresent()){
+            Booking entity = optional.get();
+            entity.setStatus(status);
+            bookingRepository.save(entity);
+            dto = entity.convertEntityToDTO();
+        }
+        return dto;
+    }
+
 
 }
