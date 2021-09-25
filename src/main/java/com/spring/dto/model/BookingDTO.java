@@ -33,7 +33,7 @@ public class BookingDTO {
     private Integer status;
 
     @NotBlank
-    ScheduleTimeDTO schedule_time;
+    ScheduleTimeDTO scheduleTime;
 
     public Booking convertDTOToEntity() {
         return new ModelMapper().map(this, Booking.class);

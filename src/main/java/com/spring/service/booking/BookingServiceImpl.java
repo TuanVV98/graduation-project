@@ -60,5 +60,16 @@ public class BookingServiceImpl implements BookingService{
         return bookingDTO;
     }
 
+    @Override
+    public BookingDTO findByScheduleTime(Long id) {
+        Optional<Booking> optional = bookingRepository.findByScheduleTimeId(id);
+        if(optional.isPresent()){
+            Booking entity = optional.get();
+            BookingDTO dto = entity.convertEntityToDTO();
+            return dto;
+        }
+        return null;
+    }
+
 
 }

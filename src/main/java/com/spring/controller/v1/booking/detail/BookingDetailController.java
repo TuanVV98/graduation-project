@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/bookingDetail")
+@RequestMapping("/api/v1/booking/detail")
 public class BookingDetailController {
     @Autowired
     private BookingDetailService bookingDetailService;
 
     //lay bokingdetail theo bookingId
     @GetMapping("/all/{id}") //id la id booking
-    public List<BookingDetailDTO> getAllByBookingId(@PathVariable("{id}") Long id){
+    public List<BookingDetailDTO> getAllByBookingId(@PathVariable("id") Long id){
         return bookingDetailService.findByBookingId(id);
     }
 

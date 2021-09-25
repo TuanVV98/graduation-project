@@ -12,4 +12,6 @@ public interface BookingService {
     BookingDTO create(BookingDTO bookingDTO);
 
     BookingDTO update(BookingDTO bookingDTO);
+
+    BookingDTO findByScheduleTime(Long id);
 }
