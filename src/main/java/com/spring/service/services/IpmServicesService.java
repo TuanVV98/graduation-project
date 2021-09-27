@@ -48,7 +48,7 @@ public class IpmServicesService implements ServicesService {
 
 	@Override
 	public ServiceDTO delete(ServiceDTO DTO) {
-		Service serviceEntity = DTO.convertDTOToEntity();
+		Service serviceEntity = serviceRepository.findByIdCustom(DTO.getId());
 		serviceEntity.setDeleteAt(true);
 		return serviceRepository.save(serviceEntity).convertEntityToDTO();
 	}
