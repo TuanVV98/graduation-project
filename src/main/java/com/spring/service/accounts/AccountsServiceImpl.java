@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AccountsServiceImpl implements AccountsService{
@@ -30,13 +32,26 @@ public class AccountsServiceImpl implements AccountsService{
     }
 
     @Override
-    public AccountsDTO save(AccountsDTO accountDTO) {
+    public AccountsDTO register(AccountsDTO accountDTO) {
         Accounts accountEntity = accountDTO.convertDTOToEntity();
         return accountRepository.save(accountEntity).convertEntityToDTO();
     }
 
     @Override
-    public void delete(Long id) {
-        accountRepository.deleteById(id);
+    public AccountsDTO delete(Long id) {
+        Accounts dto = accountRepository.findById(id).get();
+        dto.setDeleteAt(true);
+        return accountRepository.save(dto).convertEntityToDTO();
     }
+
+    @Override
+    public boolean checkIdExist(Long id) {
+        return accountRepository.checkIdExist(id);
+    }
+
+    @Override
+    public boolean checkEmailExist(String email) {
+        return accountRepository.checkEmailExist(email);
+    }
+
 }

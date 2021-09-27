@@ -12,8 +12,12 @@ public interface AccountsService {
 
     public AccountsDTO findById(Long id);
 
-    public AccountsDTO save(AccountsDTO dto);
+    public AccountsDTO register(AccountsDTO dto);
 
-    public void delete(Long id);
+    public AccountsDTO delete(Long id);
+
+    public boolean checkIdExist(Long id);
+
+    public boolean checkEmailExist(String email);
 
 }
