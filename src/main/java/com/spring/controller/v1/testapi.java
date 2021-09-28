@@ -25,4 +25,19 @@ public class testapi {
 		sv.push("khaiph11867@fpt.edu.vn", "Mail", "test Email");
 		return "sucess";
 	}
+	@GetMapping("testfile")
+	@ResponseBody
+	public String getfile() throws MessagingException {
+		List<File> l = new ArrayList<File>();
+		File f = new  File("H:\\background\\images.jpg");
+		System.out.println(f.getName());
+		l.add(f);
+		sv.push(new MailModel("binhhtph11879@fpt.edu.vn", "Mail", "test file email", l));
+		sv.push(new MailModel("tuanvvph11914@fpt.edu.vn", "Mail", "test file email", l));
+		sv.push(new MailModel("datnvph11876@fpt.edu.vn", "Mail", "test file email", l));
+		sv.push(new MailModel("khaiph11867@fpt.edu.vn", "Mail", "test file email", l));
+		sv.push(new MailModel("kienntph11878@fpt.edu.vn", "Mail", "test file email", l));
+		sv.push(new MailModel("datnvph11876@fpt.edu.vn", "Mail", "test file email", l));
+		return "sucess";
+	}
 }
