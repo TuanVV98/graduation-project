@@ -1,6 +1,10 @@
 package com.spring.controller.v1;
 
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.services.MailServices;
+import com.spring.model.MailModel;
+import com.spring.service.email.MailServices;
+
+
 
 @Controller
 public class testapi {
