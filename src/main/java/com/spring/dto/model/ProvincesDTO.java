@@ -1,7 +1,5 @@
 package com.spring.dto.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.model.Posts;
 import com.spring.model.Provinces;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Getter
 @Setter

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MailModel {
-	String from = "TK@gmail.com";
+	String from = "Email@gmail.com";
 	String to ;
 	String subject ;
 	String body ;
