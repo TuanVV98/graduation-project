@@ -1,6 +1,7 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.AccountsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,19 +35,16 @@ public class Accounts {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "update_at")
-    private Date updateAt = new Date();
+    private Date updateAt ;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
-    Roles roles;
+    private Roles roles;
 
     @Column(name = "delete_at")
     private Boolean deleteAt;
 
 //one to many
-    @JsonIgnore
-    @OneToMany(mappedBy = "accounts")
-    List<Likes> like;
 
     @JsonIgnore
     @OneToMany(mappedBy = "accounts")
@@ -72,7 +70,7 @@ public class Accounts {
     @OneToMany(mappedBy = "accounts")
     List<VerifycationToken> verifycationTokens;
 
-    public Accounts convertEntityToDTO() {
-        return new ModelMapper().map(this, Accounts.class);
+    public AccountsDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, AccountsDTO.class);
     }
 }

@@ -23,7 +23,7 @@ public class LikesDTO {
     private Date createAt = new Date();
 
     @NotBlank
-    PostsDTO postsDTO;
+    PostDTO postsDTO;
 
     @NotBlank
     AccountsDTO accountsDTO;

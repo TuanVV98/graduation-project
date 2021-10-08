@@ -18,17 +18,21 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostsDTO {
+public class PostDTO {
 
-    @NotNull
+
     private Long id;
 
+    @NotNull(message = "Title không để trống")
+    private String title;
+
+    @NotNull(message = "Content không để trống")
     private String content;
 
     private String image;
 
     @NotBlank
-    AccountsDTO accountsDTO;
+    private Long accountsDTO;
 
     private Boolean deleteAt;
 

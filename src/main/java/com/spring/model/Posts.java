@@ -1,8 +1,7 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.dto.model.LikesDTO;
-import com.spring.dto.model.PostsDTO;
+import com.spring.dto.model.PostDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +9,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -18,10 +18,16 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "posts")
-public class Posts {
+public class Posts implements Serializable {
+
+    private static final long serialVersionUID = 5514528747731992863L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "content")
     private String content;
@@ -45,7 +51,7 @@ public class Posts {
     @OneToMany(mappedBy = "posts")
     List<Likes> likes;
 
-    public PostsDTO convertEntityToDTO() {
-        return new ModelMapper().map(this, PostsDTO.class);
+    public PostDTO convertEntityToDTO() {
+        return new ModelMapper().map(this, PostDTO.class);
     }
 }

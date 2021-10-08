@@ -22,14 +22,14 @@ public class BookingDetailDTO {
     @NotNull
     private Long id;
 
-    @NotBlank
-    BookingDTO bookingDTO;
+    @NotNull
+    Long bookingId;
 
-    @NotBlank
-    ServiceDTO serviceDTO;
+    @NotNull
+    Long serviceId;
 
-    @NotBlank
-    VoucherDTO voucherDTO;
+    @NotNull
+    Long voucherId;
 
     @NotNull(message = "Không được để trống giá")
     @DecimalMin(value = "1000", message = "Giá phải > 1000")
