@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,10 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "dentist_profile")
-public class DentistProfile {
+public class DentistProfile implements Serializable {
+
+    private static final long serialVersionUID = 5514528747731992863L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

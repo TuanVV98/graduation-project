@@ -1,5 +1,6 @@
 package com.spring.dto.model;
 
+import com.spring.model.Comments;
 import com.spring.model.Communes;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class CommunesDTO {
 
+    @NotBlank(message = "Không được để trống")
     private String id;
 
     @NotBlank(message = "Không được để trống")

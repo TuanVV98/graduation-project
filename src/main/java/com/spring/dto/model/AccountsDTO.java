@@ -1,6 +1,7 @@
 package com.spring.dto.model;
 
 import com.spring.model.Accounts;
+import com.spring.utils.BcryptUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,23 +17,33 @@ import java.util.Date;
 @AllArgsConstructor
 public class AccountsDTO {
 
-    @NotNull
     private Long id;
 
     @NotEmpty(message = "Không được để trống email")
     @Email(message = "Sai định dạng")
     private String email;
 
+    @NotEmpty(message = "Không được để trống password")
+    private String password;
+
     @NotBlank(message = "Không được để trống sđt")
     @Size(max = 10)
     private String telephone;
 
-    private Date updateAt = new Date();
+    private Date updateAt ;
 
-    @NotBlank
-    RolesDTO rolesDTO;
+    String rolesId;
 
     private Boolean deleteAt;
+
+    public AccountsDTO(Long id, String rolesId) {
+        this.id = id;
+        this.rolesId = rolesId;
+    }
+
+    public String getPassword() {
+        return BcryptUtil.getHash(this.password);
+    }
 
     public Accounts convertDTOToEntity() {
         return new ModelMapper().map(this, Accounts.class);

@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -17,7 +18,10 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "provinces")
-public class Provinces {
+public class Provinces implements Serializable {
+
+    private static final long serialVersionUID = 5514528747731992863L;
+
     @Id
     @Column(name = "id")
     private String id;

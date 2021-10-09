@@ -17,13 +17,13 @@ import java.util.Date;
 @AllArgsConstructor
 public class LikesDTO {
 
-    @NotNull
+    
     private Long id;
 
     private Date createAt = new Date();
 
     @NotBlank
-    PostsDTO postsDTO;
+    PostDTO postsDTO;
 
     @NotBlank
     AccountsDTO accountsDTO;

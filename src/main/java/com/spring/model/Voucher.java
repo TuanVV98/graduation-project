@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,10 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "voucher")
-public class Voucher {
+public class Voucher implements Serializable {
+
+    private static final long serialVersionUID = 5514528747731992863L;
+
     @Id
     @Column(name = "id")
     private String id;
@@ -35,11 +39,11 @@ public class Voucher {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "start")
-    private Date start = new Date();
+    private Date start ;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "end")
-    private Date end = new Date();
+    private Date end ;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
@@ -48,10 +52,11 @@ public class Voucher {
     @Column(name = "delete_at")
     private Boolean deleteAt;
 
-//one to many
-    @JsonIgnore
-    @OneToMany(mappedBy = "voucher")
-    List<BookingDetail> bookingDetails;
+    @OneToMany(
+            mappedBy = "voucher",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<BookingDetail> bookingDetails;
 
     public VoucherDTO convertEntityToDTO() {
         return new ModelMapper().map(this, VoucherDTO.class);

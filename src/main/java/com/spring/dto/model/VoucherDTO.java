@@ -1,5 +1,10 @@
 package com.spring.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.spring.model.VerifycationToken;
 import com.spring.model.Voucher;
 import lombok.AllArgsConstructor;
@@ -11,6 +16,8 @@ import org.modelmapper.ModelMapper;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -19,21 +26,31 @@ import java.util.Date;
 @AllArgsConstructor
 public class VoucherDTO {
 
-    @NotBlank(message = "Không được để trống")
     private String id;
 
-    @NotBlank(message = "Không được để trống nội dung")
+    @NotNull(message = "Không được để trống nội dung")
     private String content;
 
     private String image;
 
-    @NotNull
-    @DecimalMin(value = "0")
+    @NotNull(message = "Không được để trống giá sale")
     private Double sale;
 
-    private Date start = new Date();
+    @NotNull(message = "Ngày bắt đầu không để trống")
+    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", locale = "vi-VN", timezone = "Asia/Ho_Chi_Minh")
+    private LocalDateTime start ;
 
-    private Date end = new Date();
+    //@Pattern(
+    //            regexp = "[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]",
+    //            message = "Ngày bắt đầu không đúng định dạng"
+    //    )
+    @NotNull(message = "Ngày kết thúc không để trống")
+    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", locale = "vi-VN", timezone = "Asia/Ho_Chi_Minh")
+    private LocalDateTime end ;
 
     private Date createAt = new Date();
 

@@ -1,6 +1,7 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.dto.model.CommentsDTO;
 import com.spring.dto.model.CommunesDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -17,9 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "communes")
-public class Communes {
+public class Communes implements Serializable {
+
+    private static final long serialVersionUID = 5514528747731992863L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "name")

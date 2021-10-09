@@ -1,0 +1,125 @@
+package com.spring.controller.v1.comment;
+
+import com.spring.dto.model.CommentsDTO;
+import com.spring.dto.response.Response;
+import com.spring.service.comment.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/comment")
+public class CommentController {
+    private CommentService commentService;
+
+    @Autowired
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
+    //read all comment
+    @GetMapping("/all")
+    public ResponseEntity<Response<List<CommentsDTO>>> getAll(){
+        Response<List<CommentsDTO>> response= new Response<>();
+        response.setData(this.commentService.readAll());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping()
+    public ResponseEntity<Response<CommentsDTO>> create(
+            @RequestBody @Valid CommentsDTO commentsDTO,
+            BindingResult bindingResult
+    ){
+        Response<CommentsDTO> response= new Response<>();
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().
+                    forEach(error->response.addErrorMsgToResponse(error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(response);
+        }
+        response.setData(this.commentService.create(commentsDTO));
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Response<CommentsDTO>> update(
+            @RequestBody @Valid CommentsDTO commentsDTO,
+            BindingResult bindingResult
+    ){
+
+        Response<CommentsDTO> response= new Response<>();
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().
+                    forEach(error->response.addErrorMsgToResponse(error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(response);
+        }
+        response.setData(this.commentService.update(commentsDTO));
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response<CommentsDTO>> delete(
+            @PathVariable Long id
+    ){
+        Response<CommentsDTO> response=new Response<>();
+        response.setData(this.commentService.delete(id));
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    //soft-delete
+    @PutMapping("/soft-delete/{id}")
+    public ResponseEntity<Response<CommentsDTO>> soft_delete(
+            @PathVariable Long id,
+            @RequestParam Boolean deleteAt
+    ){
+        Response<CommentsDTO> response=new Response<>();
+        response.setData(this.commentService.updateDeleteAt(id, deleteAt));
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    // read all with deleteAt=TRUE
+    @GetMapping("/recycle-bin")
+    public ResponseEntity<Response<List<CommentsDTO>>> getAllDeleteAtTrue(){
+        Response<List<CommentsDTO>> response=new Response<>();
+        response.setData(this.commentService.readAllDeleteAtTrue());
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    // read all with deleteAt=FALSE
+    @GetMapping()
+    public ResponseEntity<Response<List< CommentsDTO>>> getAllDeleteAtFalse(){
+        Response<List<CommentsDTO>> response=new Response<>();
+        response.setData(this.commentService.readAllDeleteAtFalse());
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    //read all comment by post_id
+    @GetMapping("/post")
+    public ResponseEntity<Response<List<CommentsDTO>> > getAllCommentByPostId
+    (
+            @RequestParam Long postsId
+    ){
+        Response<List<CommentsDTO>> response=new Response<>();
+        response.setData(this.commentService.readAllCommentByPostId(postsId));
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    //read all comment by post_id and account_id
+    @GetMapping("/post-account")
+    public ResponseEntity<Response<List<CommentsDTO>> > getAllCommentByPostAndByAccount
+    (
+            @RequestParam Long postsId,
+            @RequestParam Long accountsId
+    ){
+        Response<List<CommentsDTO>> response=new Response<>();
+        response.setData(this.commentService.readAllCommentByPostIdAndAccountId(postsId,accountsId));
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+
+
+}

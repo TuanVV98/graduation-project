@@ -1,21 +1,28 @@
 package com.spring.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.model.ScheduleTime;
 import com.spring.model.Service;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceDTO {
 
+    @NotNull
     private Long id;
 
     @NotBlank(message = "Không được để trống nội dung")
@@ -33,8 +40,6 @@ public class ServiceDTO {
     private Date createAt = new Date();
 
     private Boolean deleteAt;
-    
-    
 
     public Service convertDTOToEntity() {
         return new ModelMapper().map(this, Service.class);

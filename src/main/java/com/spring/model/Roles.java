@@ -3,6 +3,7 @@ package com.spring.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.dto.model.ProvincesDTO;
 import com.spring.dto.model.RolesDTO;
+import com.spring.enumeration.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 public class Roles {
+
     @Id
     @Column(name = "id")
     private String id;
@@ -26,7 +28,7 @@ public class Roles {
     @Column(name = "name")
     private String name;
 
-//one to many
+    //one to many
     @JsonIgnore
     @OneToMany(mappedBy = "roles")
     List<Accounts> accounts;

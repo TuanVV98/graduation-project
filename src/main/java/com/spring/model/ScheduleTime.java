@@ -10,6 +10,8 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +21,10 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "schedule_time")
-public class ScheduleTime {
+public class ScheduleTime implements Serializable {
+
+    private static final long serialVersionUID = 5514528747731992863L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,15 +32,15 @@ public class ScheduleTime {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "day_of_week")
-    private Date dayOfWeek = new Date();
+    private Date dayOfWeek ;
 
-    @Temporal(TemporalType.TIME)
+//    @Temporal(TemporalType.TIME)
     @Column(name = "start")
-    private Date start = new Date();
+    private LocalDateTime start ;
 
-    @Temporal(TemporalType.TIME)
+//    @Temporal(TemporalType.TIME)
     @Column(name = "end")
-    private Date end = new Date();
+    private LocalDateTime end ;
 
     @ManyToOne
     @JoinColumn(name = "dentist_id")
