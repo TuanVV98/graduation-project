@@ -19,13 +19,13 @@ public class BookingDetailDTO {
 
     private Long id;
 
-    @NotBlank
+    @NotNull
     BookingDTO booking;
 
-    @NotBlank
+    @NotNull
     ServiceDTO service;
 
-    @NotBlank
+
     VoucherDTO voucher;
 
     @NotNull(message = "Không được để trống giá")

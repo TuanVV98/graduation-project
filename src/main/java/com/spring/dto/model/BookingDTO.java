@@ -19,10 +19,10 @@ public class BookingDTO {
 
     private Long id;
 
-    @NotBlank
+    @NotNull
     DentistProfileDTO dentistProfile;
 
-    @NotBlank
+    @NotNull
     CustomerProfileDTO customerProfile;
 
     private Date bookingDate = new Date();
@@ -32,7 +32,7 @@ public class BookingDTO {
     @NotNull
     private Integer status;
 
-    @NotBlank
+    @NotNull
     ScheduleTimeDTO scheduleTime;
 
     public Booking convertDTOToEntity() {

@@ -21,10 +21,10 @@ public class LikesDTO {
 
     private Date createAt = new Date();
 
-    @NotBlank
+    @NotNull
     PostsDTO posts;
 
-    @NotBlank
+    @NotNull
     AccountsDTO accounts;
 
     public Likes convertDTOToEntity() {
