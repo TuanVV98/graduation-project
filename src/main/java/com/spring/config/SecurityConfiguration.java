@@ -67,20 +67,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
     }
-    
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        System.out.println("disable ***");
-//        http.csrf().disable()
-//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//                .authorizeRequests().antMatchers(
-//                "/api/v1/user/auth/**","/api/v1/schedule-tDime/**","/api/v1/accounts/**",
-//                "/v3/api-docs", "/swagger-resources/**", "/swagger-ui/**", "/manage/**").permitAll()
-//                .antMatchers("")
-//                .permitAll().anyRequest().authenticated();
-////
-//        http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-//        http.headers().cacheControl();
-//    }
 }

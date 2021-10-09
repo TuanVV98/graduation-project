@@ -35,13 +35,9 @@ public class ServiceController {
 
 	@GetMapping("")
 	public ResponseEntity<Response<List<ServiceDTO>>> getAll() {
-
 		Response<List<ServiceDTO>> response = new Response<>();
-
 		List<ServiceDTO> entity = this.serviceService.findAll();
-
 		response.setData(entity);
-
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 

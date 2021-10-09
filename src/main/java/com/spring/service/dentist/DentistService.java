@@ -8,6 +8,7 @@ import java.util.List;
 public interface DentistService {
 
     List<DentistProfileDTO> getAll();
+    List<DentistProfileDTO> getAllByTop(int top);
 
     List<DentistProfileDTO> getAllOnRecycleBin();
 
