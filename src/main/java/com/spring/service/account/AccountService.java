@@ -15,6 +15,8 @@ public interface AccountService {
     Optional<Accounts> checkIfEmailExistsAndDeletedAt(String email);
     
     Optional<Accounts> checkTelephone(String sdt);
+    
+    boolean checkId (Long id);
 
     public List<AccountsDTO> findAll();
 

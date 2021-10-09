@@ -67,13 +67,30 @@ public class AccountController {
 		if (accountService.checkIfEmailExistsAndDeletedAt(accountsDTO.getEmail()).isPresent()) {
 			throw new NotFoundException("Email này đã tồn tại");
 		}
-		
+
 		if (accountService.checkTelephone(accountsDTO.getTelephone()).isPresent()) {
 			throw new NotFoundException("Số Điện Thoại này đã tồn tại");
 		}
 
 		response.setData(this.accountService.register(accountsDTO));
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+
+	// api thay tài khoản
+	@PutMapping("/{id}")
+	public ResponseEntity<Response<AccountsDTO>> update(@Validated @RequestBody AccountsDTO accountsDTO,
+			BindingResult result, @PathVariable("id") Long id) throws NotFoundException {
+		Response<AccountsDTO> response = new Response<>();
+		if (result.hasErrors()) {
+			result.getAllErrors().forEach(error -> response.addErrorMsgToResponse((error.getDefaultMessage())));
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		if (!accountService.checkId(id)) {
+			throw new NotFoundException("Account này không tồn  tại");
+		}
+		response.setData(this.accountService.update(accountsDTO));
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
 //    @PutMapping("/{id}")

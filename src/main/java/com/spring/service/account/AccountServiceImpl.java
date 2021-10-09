@@ -70,4 +70,11 @@ public class AccountServiceImpl implements AccountService{
     public void delete(Long id) {
         accountRepository.deleteById(id);
     }
+
+	@Override
+	public boolean checkId(Long id) {
+		return accountRepository.existsById(id);
+	}
+
+
 }

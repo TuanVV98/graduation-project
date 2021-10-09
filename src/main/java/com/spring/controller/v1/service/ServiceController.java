@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.dto.model.PostDTO;
 import com.spring.dto.model.ServiceDTO;
 import com.spring.dto.response.Response;
 import com.spring.service.services.ServicesService;
