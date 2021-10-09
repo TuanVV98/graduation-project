@@ -4,6 +4,9 @@ import com.spring.dto.model.AccountsDTO;
 import com.spring.dto.response.Response;
 import com.spring.exception.NotFoundException;
 import com.spring.service.account.AccountService;
+
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -79,7 +82,7 @@ public class AccountController {
 	// api thay tài khoản
 	@PutMapping("/{id}")
 	public ResponseEntity<Response<AccountsDTO>> update(@Validated @RequestBody AccountsDTO accountsDTO,
-			BindingResult result, @PathVariable("id") Long id) throws NotFoundException {
+			BindingResult result, @PathParam("id") Long id) throws NotFoundException {
 		Response<AccountsDTO> response = new Response<>();
 		if (result.hasErrors()) {
 			result.getAllErrors().forEach(error -> response.addErrorMsgToResponse((error.getDefaultMessage())));
