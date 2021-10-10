@@ -68,7 +68,7 @@ public class Accounts {
 
     @JsonIgnore
     @OneToMany(mappedBy = "accounts")
-    List<VerifycationToken> verifycationTokens;
+    List<VerificationToken> verificationTokens;
 
     public AccountsDTO convertEntityToDTO() {
         return new ModelMapper().map(this, AccountsDTO.class);

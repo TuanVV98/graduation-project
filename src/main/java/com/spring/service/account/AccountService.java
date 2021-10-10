@@ -2,6 +2,7 @@ package com.spring.service.account;
 
 import com.spring.dto.model.AccountsDTO;
 import com.spring.model.Accounts;
+import com.spring.model.VerificationToken;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +15,17 @@ public interface AccountService {
 
     Optional<Accounts> checkIfEmailExistsAndDeletedAt(String email);
 
-    public List<AccountsDTO> findAll();
+    List<AccountsDTO> findAll();
 
-    public AccountsDTO findById(Long id);
+    AccountsDTO findById(Long id);
 
-    public void delete(Long id);
+    void delete(Long id);
+
+    void sendRegistrationConfirmationEmail(Accounts account);
+
+    void sendResetPasswordEmail(Accounts account);
+
+    boolean verifyAccount(Optional<VerificationToken> verifyToken);
+
+    boolean verifyChangePassword(Optional<VerificationToken> verifyToken);
 }
