@@ -33,6 +33,13 @@ public class DentistServiceImpl implements DentistService{
     }
 
     @Override
+    public List<DentistProfileDTO> getAllByTop(int top) {
+        List<DentistProfileDTO> itemDTO = new ArrayList<>();
+        this.dentistProfileRepository.findAllByTop(top).forEach(t ->itemDTO.add(t.convertEntityToDTO()));
+        return itemDTO;
+    }
+
+    @Override
     public List<DentistProfileDTO> getAllOnRecycleBin() {
         List<DentistProfileDTO> itemDTO = new ArrayList<>();
         this.dentistProfileRepository.findAllByDeleteAtIsTrue().forEach(t ->itemDTO.add(t.convertEntityToDTO()));

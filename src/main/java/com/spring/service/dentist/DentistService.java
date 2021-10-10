@@ -22,4 +22,6 @@ public interface DentistService {
     void updateDeleted(Long id, Boolean deleted) throws NotFoundException;
 
     void hardDelete(Long id) throws NotFoundException;
+
+    List<DentistProfileDTO> getAllByTop(int top);
 }

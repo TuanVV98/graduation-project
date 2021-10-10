@@ -24,7 +24,7 @@ import com.spring.dto.response.Response;
 import com.spring.service.services.ServicesService;
 
 @RestController
-@RequestMapping("api/services")
+@RequestMapping("api/v1/services")
 public class ServiceController {
 
     private final ServicesService serviceService;

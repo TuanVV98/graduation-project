@@ -1,4 +1,4 @@
-package com.spring.controller.v1.Post;
+package com.spring.controller.v1.post;
 
 import com.spring.dto.model.PostDTO;
 import com.spring.dto.response.Response;
