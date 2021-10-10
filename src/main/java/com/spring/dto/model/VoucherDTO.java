@@ -39,7 +39,7 @@ public class VoucherDTO {
     @NotNull(message = "Ngày bắt đầu không để trống")
     @JsonSerialize(using = ToStringSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", locale = "vi-VN", timezone = "Asia/Ho_Chi_Minh")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", locale = "en-US", timezone = "Brazil/East")
     private LocalDateTime start ;
 
     //@Pattern(
@@ -49,7 +49,7 @@ public class VoucherDTO {
     @NotNull(message = "Ngày kết thúc không để trống")
     @JsonSerialize(using = ToStringSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", locale = "vi-VN", timezone = "Asia/Ho_Chi_Minh")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", locale = "en-US", timezone = "Brazil/East")
     private LocalDateTime end ;
 
     private Date createAt = new Date();

@@ -36,12 +36,16 @@ public class PostController {
             BindingResult result
     ) {
 
+        System.out.println("title : "+dto.getTitle());
+        System.out.println("content : "+dto.getContent());
+        System.out.println("image : "+file.getOriginalFilename());
         Response<PostDTO> response = new Response<>();
 
         if (result.hasErrors()) {
             result.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
             return ResponseEntity.badRequest().body(response);
         }
+
 
         response.setData(this.postService.save(dto));
 
@@ -55,6 +59,9 @@ public class PostController {
             BindingResult result
     ) {
 
+        System.out.println("title : "+dto.getTitle());
+        System.out.println("content : "+dto.getContent());
+        System.out.println("image : "+file.getOriginalFilename());
         Response<PostDTO> response = new Response<>();
 
         if (result.hasErrors()) {
@@ -67,7 +74,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping(value = "/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<Response<PostDTO>> update(
             @Valid @RequestBody PostDTO dto,
             BindingResult result
@@ -85,8 +92,8 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping(value = "/by-title/{title}")
-    public ResponseEntity<Response<List<PostDTO>>> findByTitle(@PathVariable("title") String title) {
+    @GetMapping(value = "/by-title")
+    public ResponseEntity<Response<List<PostDTO>>> findByTitle(@RequestParam(required = false) String title) {
 
         Response<List<PostDTO>> response = new Response<>();
 

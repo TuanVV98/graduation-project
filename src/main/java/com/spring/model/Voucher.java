@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -37,13 +38,13 @@ public class Voucher implements Serializable {
     @Column(name = "sale")
     private Double sale;
 
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
     @Column(name = "start")
-    private Date start ;
+    private LocalDateTime start ;
 
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
     @Column(name = "end")
-    private Date end ;
+    private LocalDateTime  end ;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")

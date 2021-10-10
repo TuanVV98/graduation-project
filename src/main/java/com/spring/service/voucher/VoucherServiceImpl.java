@@ -1,6 +1,7 @@
 package com.spring.service.voucher;
 
 import com.spring.dto.model.VoucherDTO;
+import com.spring.model.Posts;
 import com.spring.model.Voucher;
 import com.spring.repository.VoucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class VoucherServiceImpl implements VoucherService{
 
-    private VoucherRepository voucherRepository;
+    private final VoucherRepository voucherRepository;
 
     @Autowired
     public VoucherServiceImpl(VoucherRepository voucherRepository) {
@@ -34,22 +36,32 @@ public class VoucherServiceImpl implements VoucherService{
 
     @Override
     public List<VoucherDTO> findByTitle(String title) {
-        return null;
+        List<VoucherDTO> itemDTO = new ArrayList<>();
+        this.voucherRepository.findByContent(title).forEach(t ->itemDTO.add(t.convertEntityToDTO()));
+        return itemDTO;
+
     }
 
     @Override
-    public Optional<VoucherDTO> findById(Long id) {
+    public Optional<VoucherDTO> findById(String id) {
+
+        Optional<Voucher> voucher = this.voucherRepository.findById(id);
+        if(voucher.isPresent()){
+            return voucher.map(Voucher::convertEntityToDTO);
+        }
         return Optional.empty();
     }
 
     @Override
     public List<VoucherDTO> findAll() {
-        return null;
+        List<VoucherDTO> itemDTO = new ArrayList<>();
+        this.voucherRepository.findAll().forEach(t ->itemDTO.add(t.convertEntityToDTO()));
+        return itemDTO;
     }
 
     @Override
-    public Page<Voucher> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
-        return this.voucherRepository
-                .findAllByStartDateGreaterThanEqualAndStartDateLessThanEqual(startDate, endDate, pageable);
+    public List<Voucher> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+       return this.voucherRepository
+                .findAllByStartGreaterThanEqualAndStartLessThanEqual(startDate, endDate);
     }
 }
