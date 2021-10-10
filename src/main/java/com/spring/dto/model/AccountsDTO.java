@@ -22,6 +22,8 @@ public class AccountsDTO {
     @Email(message = "Sai định dạng")
     private String email;
 
+    private String password;
+
     @NotBlank(message = "Không được để trống sđt")
     @Size(max = 10)
     private String telephone;
@@ -29,7 +31,7 @@ public class AccountsDTO {
     private Date updateAt = new Date();
 
     @NotBlank
-    RolesDTO rolesDTO;
+    String rolesId;
 
     private Boolean deleteAt;
 

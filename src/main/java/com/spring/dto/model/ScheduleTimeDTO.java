@@ -29,20 +29,16 @@ public class ScheduleTimeDTO {
 
     @NotNull(message = "Không để trống dayOfWeek")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date dayOfWeek = new Date();
+    private Date dayOfWeek;
 
 
-    @NotBlank(message = "Không để trống start !")
-    @Pattern(regexp = "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$",
-            message = "Vui lòng nhập đúng định dạng giờ HH:mm")
-    private  String start;
+    @NotNull(message = "Không để trống start !")
+    private  LocalDateTime start;
 
 
 
-    @NotBlank(message = "Không để trống end !")
-    @Pattern(regexp = "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$",
-            message = "Vui lòng nhập đúng định dạng giờ HH:mm")
-    private  String end;
+    @NotNull(message = "Không để trống end !")
+    private  LocalDateTime end;
 
 
     @NotNull(message = "Không để trống Id của nha sĩ !")

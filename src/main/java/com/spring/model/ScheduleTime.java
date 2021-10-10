@@ -28,15 +28,15 @@ public class ScheduleTime {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "day_of_week")
-    private Date dayOfWeek = new Date();
+    private Date dayOfWeek ;
 
 
     @Column(name = "start")
-    private  String start;
+    private  LocalDateTime start;
 
 
     @Column(name = "end")
-    private  String end;
+    private  LocalDateTime end;
 
 
     @ManyToOne
