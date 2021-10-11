@@ -52,6 +52,10 @@ public class AccountController {
             throw new NotFoundException("Email này đã được sử dụng");
         }
 
+        if (this.accountService.checkTelephone(accountsDTO.getTelephone()).isPresent()) {
+            throw new NotFoundException("Số Điện Thoại này đã tồn tại");
+        }
+
         response.setData(this.accountService.register(accountsDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -62,66 +66,57 @@ public class AccountController {
 
         Response<?> response = new Response<>();
 
-        Optional<VerificationToken> checkComfirmToken = this.verificationTokenService.checkComfirmToken(token);
+        Optional<VerificationToken> checkConfirmToken = this.verificationTokenService.checkComfirmToken(token);
 
-        if(!checkComfirmToken.isPresent()) {
+        if(checkConfirmToken.isEmpty()) {
            throw new NotFoundException("Account has been activated ! Thank you !");
         }
 
-        boolean verifyAccount = this.accountService.verifyAccount(checkComfirmToken);
+        boolean verifyAccount = this.accountService.verifyAccount(checkConfirmToken);
 
         if(!verifyAccount) {
             throw new NotParsableContentException("Token is not valid or token has expired !");
         };
 
-        return new ResponseEntity<>("Comfirm !!",HttpStatus.OK);
+        return new ResponseEntity<>("Confirm !!",HttpStatus.OK);
     }
 
     @GetMapping(value = "/verify-change-password")
     public ResponseEntity<?> verifyChangePassword(@RequestParam(required = false) String token) throws NotParsableContentException, NotFoundException {
 
-
         Response<?> response = new Response<>();
 
-//        boolean verifyAccount = this.accountService.verifyChangePassword();
+        Optional<VerificationToken> checkConfirmToken = this.verificationTokenService.checkComfirmToken(token);
 
-//        if(!verifyAccount) {
-//            throw new NotParsableContentException("Token is not valid or token has expired !");
-//        };
+        if(checkConfirmToken.isEmpty()) {
+            throw new NotFoundException("Token already used ! Thank you !");
+        }
 
-        return new ResponseEntity<>("Comfirm !!",HttpStatus.OK);
+        boolean verifyAccount = this.accountService.verifyChangePassword(checkConfirmToken);
+
+        if(!verifyAccount) {
+            throw new NotParsableContentException("Token has expired !");
+        };
+
+        return new ResponseEntity<>("Confirm !!",HttpStatus.OK);
     }
 
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Response<AccountsDTO>> update(@Validated @RequestBody AccountsDTO accountsDTO, BindingResult result){
-//        Response<AccountsDTO> response = new Response<>();
-//        if(result.hasErrors()){
-//            result.getAllErrors().forEach(error -> response.addErrorMsgToResponse((error.getDefaultMessage())));
-//            return ResponseEntity.badRequest().body(response);
-//        }
-//        if(accountsService.checkIdExist(accountsDTO.getId())){
-//            response.addErrorMsgToResponse("Id này đã được sử dụng");
-//            return ResponseEntity.badRequest().body(response);
-//        }
-//        if(accountsService.checkEmailExist(accountsDTO.getEmail())){
-//            response.addErrorMsgToResponse("Email này đã được sử dụng");
-//            return ResponseEntity.badRequest().body(response);
-//        }
-//        response.setData(this.accountsService.register(accountsDTO));
-//        return new ResponseEntity<>(response, HttpStatus.CREATED);
-//    }
-//
-//    @PutMapping("/delete/{id}")
-//    public ResponseEntity<Response<AccountsDTO>> deleteById(@PathVariable("id") Long id){
-//        Response<AccountsDTO> response = new Response<>();
-//        if(accountsService.checkIdExist(id)){
-//            response.addErrorMsgToResponse("Id này đã được sử dụng");
-//            return ResponseEntity.badRequest().body(response);
-//        }
-//        accountsService.delete(id);
-//        return ResponseEntity.ok().build();
-//    }
-//
+    @PutMapping("/{id}")
+    public ResponseEntity<Response<AccountsDTO>> update(@Validated @RequestBody AccountsDTO accountsDTO, BindingResult result){
+        Response<AccountsDTO> response = new Response<>();
+        if(result.hasErrors()){
+            result.getAllErrors().forEach(error -> response.addErrorMsgToResponse((error.getDefaultMessage())));
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        response.setData(this.accountService.update(accountsDTO));
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id){
+        this.accountService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 
 }

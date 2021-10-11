@@ -16,4 +16,6 @@ public interface AccountRepository extends JpaRepository<Accounts, Long> {
     Optional<Accounts> checkIfEmailExistsAndDeletedAt(@Param("email") String email);
 
     Optional<Accounts> findByEmail(String email);
+
+    Optional<Accounts> findByTelephone(String telephone);
 }

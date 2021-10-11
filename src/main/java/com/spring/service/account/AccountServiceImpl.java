@@ -64,6 +64,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Optional<Accounts> checkTelephone(String sdt) {
+        return this.accountRepository.findByTelephone(sdt);
+    }
+
+    @Override
     public List<AccountsDTO> findAll() {
         List<AccountsDTO> itemsDTO = new ArrayList<>();
         accountRepository.findAll().stream().forEach(t -> itemsDTO.add(t.convertEntityToDTO()));

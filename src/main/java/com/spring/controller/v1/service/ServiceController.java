@@ -49,7 +49,7 @@ public class ServiceController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("")
+    @PostMapping()
     public ResponseEntity<Response<ServiceDTO>> postServices(@Valid @RequestBody() ServiceDTO servicesDTO,
                                                              BindingResult result) throws NotFoundException {
         Response<ServiceDTO> response = new Response<>();
