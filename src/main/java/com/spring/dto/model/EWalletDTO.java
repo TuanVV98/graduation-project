@@ -1,6 +1,5 @@
 package com.spring.dto.model;
 
-import com.spring.model.Districts;
 import com.spring.model.EWallet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

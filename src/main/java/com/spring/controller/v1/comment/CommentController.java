@@ -6,6 +6,7 @@ import com.spring.service.comment.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,14 +23,15 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    //read all comment
+    //read all comment của admin hoặc lễ tân
+    @PreAuthorize("hasAnyRole('ADMIN' or 'RECEPTIONIST')")
     @GetMapping("/all")
     public ResponseEntity<Response<List<CommentsDTO>>> getAll(){
         Response<List<CommentsDTO>> response= new Response<>();
         response.setData(this.commentService.readAll());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
+    // phải đăng nhập
     @PostMapping()
     public ResponseEntity<Response<CommentsDTO>> create(
             @RequestBody @Valid CommentsDTO commentsDTO,
@@ -44,7 +46,7 @@ public class CommentController {
         response.setData(this.commentService.create(commentsDTO));
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
-
+    // chưa dùng đến
     @PutMapping("/{id}")
     public ResponseEntity<Response<CommentsDTO>> update(
             @RequestBody @Valid CommentsDTO commentsDTO,
@@ -60,7 +62,8 @@ public class CommentController {
         response.setData(this.commentService.update(commentsDTO));
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
-
+    // phải đăng nhập
+    // xóa cứng
     @DeleteMapping("/{id}")
     public ResponseEntity<Response<CommentsDTO>> delete(
             @PathVariable Long id
@@ -70,7 +73,7 @@ public class CommentController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-    //soft-delete
+    //soft-delete mềm phải đăng nhập
     @PutMapping("/soft-delete/{id}")
     public ResponseEntity<Response<CommentsDTO>> soft_delete(
             @PathVariable Long id,
@@ -80,16 +83,17 @@ public class CommentController {
         response.setData(this.commentService.updateDeleteAt(id, deleteAt));
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
-
+ // phải đăng nhập
     // read all with deleteAt=TRUE
+    @PreAuthorize("hasAnyRole('ADMIN' or 'RECEPTIONIST')")
     @GetMapping("/recycle-bin")
     public ResponseEntity<Response<List<CommentsDTO>>> getAllDeleteAtTrue(){
         Response<List<CommentsDTO>> response=new Response<>();
         response.setData(this.commentService.readAllDeleteAtTrue());
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
-
-    // read all with deleteAt=FALSE
+    
+    // read all with deleteAt=FALSE  ai cũng xem được (hiển thị  chính )
     @GetMapping()
     public ResponseEntity<Response<List< CommentsDTO>>> getAllDeleteAtFalse(){
         Response<List<CommentsDTO>> response=new Response<>();
@@ -97,7 +101,8 @@ public class CommentController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-    //read all comment by post_id
+    //read all comment by post_id của admin hoặc lễ tân
+    @PreAuthorize("hasAnyRole('ADMIN' or 'RECEPTIONIST')")
     @GetMapping("/post")
     public ResponseEntity<Response<List<CommentsDTO>> > getAllCommentByPostId
     (
@@ -108,7 +113,7 @@ public class CommentController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-    //read all comment by post_id and account_id
+    //read all comment by post_id and account_id 
     @GetMapping("/post-account")
     public ResponseEntity<Response<List<CommentsDTO>> > getAllCommentByPostAndByAccount
     (

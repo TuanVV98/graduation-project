@@ -1,6 +1,5 @@
 package com.spring.service.schedule_time;
 
-import com.spring.dto.model.CommentsDTO;
 import com.spring.dto.model.ScheduleTimeDTO;
 import com.spring.model.ScheduleTime;
 import com.spring.repository.ScheduleTimeRepository;

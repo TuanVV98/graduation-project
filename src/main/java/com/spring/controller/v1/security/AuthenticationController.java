@@ -54,8 +54,8 @@ public class AuthenticationController {
 
         Response<TokenDTO> response = new Response<>();
 
-        System.out.println("email : "+dto.getEmail());
-        System.out.println("pass : "+dto.getPassword());
+//        System.out.println("email : "+dto.getEmail());
+//        System.out.println("pass : "+dto.getPassword());
 
         if (result.hasErrors()) {
             result.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
@@ -75,7 +75,7 @@ public class AuthenticationController {
 
         String token = jwtTokenUtil.getToken(userDetails);
         response.setData(new TokenDTO(token));
-        
+
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

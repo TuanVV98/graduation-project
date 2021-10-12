@@ -1,6 +1,7 @@
 package com.spring.service.post;
 
 import com.spring.dto.model.PostDTO;
+import com.spring.exception.NotFoundException;
 import com.spring.model.Posts;
 import com.spring.repository.PostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,12 @@ public class PostServiceImpl implements PostService{
         List<PostDTO> item = new ArrayList<>();
         this.postsRepository.findAll().forEach(t -> item.add(t.convertEntityToDTO()));
         return item;
+    }
+
+    @Override
+    public void hardDelete(Long id) throws NotFoundException {
+        Posts entity = this.postsRepository.findById(id).
+                orElseThrow(()-> new NotFoundException("Not found Post with :"+id));
+        this.postsRepository.delete(entity);
     }
 }

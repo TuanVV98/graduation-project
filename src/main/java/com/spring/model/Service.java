@@ -1,7 +1,6 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.dto.model.ScheduleTimeDTO;
 import com.spring.dto.model.ServiceDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

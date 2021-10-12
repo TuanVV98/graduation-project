@@ -8,10 +8,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableConfigurationProperties(FileStorageProperties.class)
-public class GraduationProjectApplication {
+public class GraduationProjectCompleteApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GraduationProjectApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GraduationProjectCompleteApplication.class, args);
+    }
 
 }

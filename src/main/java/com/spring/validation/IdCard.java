@@ -2,7 +2,6 @@ package com.spring.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.constraints.Email;
 import java.lang.annotation.*;
 
 @Documented

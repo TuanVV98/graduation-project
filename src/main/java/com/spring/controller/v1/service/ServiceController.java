@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.spring.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.dto.model.ServiceDTO;
 import com.spring.dto.response.Response;
+import com.spring.exception.NotFoundException;
 import com.spring.service.services.ServicesService;
 
 @RestController
-@RequestMapping("api/services")
+@RequestMapping("api/v1/services")
 public class ServiceController {
 
 	private final ServicesService serviceService;
@@ -34,11 +35,8 @@ public class ServiceController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<Response<List<ServiceDTO>>> getAll() {
-		Response<List<ServiceDTO>> response = new Response<>();
-		List<ServiceDTO> entity = this.serviceService.findAll();
-		response.setData(entity);
-		return ResponseEntity.status(HttpStatus.OK).body(response);
+	public ResponseEntity<List<ServiceDTO>> getAll() {
+		return ResponseEntity.ok(serviceService.findAll());
 	}
 
 	@GetMapping("/{id}")
@@ -51,7 +49,8 @@ public class ServiceController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PostMapping("")
+	@PreAuthorize("hasAnyRole('ADMIN' or 'RECEPTIONIST')")
+	@PostMapping()
 	public ResponseEntity<Response<ServiceDTO>> postServices(@Valid @RequestBody() ServiceDTO servicesDTO,
 			BindingResult result) throws NotFoundException {
 		Response<ServiceDTO> response = new Response<>();
@@ -61,17 +60,19 @@ public class ServiceController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		if (serviceService.existByName(servicesDTO.getName())) {
-			throw new NotFoundException("Dịch vụ này Đã tồn tại");
+			throw new NotFoundException("Dịch vụ này Không tồn tại");
 		}
 
 		response.setData(serviceService.create(servicesDTO));
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN' or 'RECEPTIONIST')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Response<ServiceDTO>> putServices(@Valid @RequestBody() ServiceDTO servicesDTO,
 			BindingResult result, @PathVariable("id") Long id) throws NotFoundException {
 		Response<ServiceDTO> response = new Response<>();
+		// chưa check quền cập nhật role
 		if (result.hasErrors()) {
 			result.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
@@ -83,6 +84,7 @@ public class ServiceController {
 		return ResponseEntity.ok(response);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Response<ServiceDTO>> deleteServices(@PathVariable("id") Long id) throws NotFoundException {
 		Response<ServiceDTO> response = new Response<>();

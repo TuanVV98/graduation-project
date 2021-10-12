@@ -1,6 +1,7 @@
 package com.spring.service.voucher;
 
 import com.spring.dto.model.VoucherDTO;
+import com.spring.exception.NotFoundException;
 import com.spring.model.Voucher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +20,11 @@ public interface VoucherService {
 
     List<VoucherDTO> findByTitle(String title);
 
-    Optional<VoucherDTO> findById(Long id);
+    Optional<VoucherDTO> findById(String id);
 
     List<VoucherDTO> findAll();
 
-     Page<Voucher> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+    List<Voucher> findBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
+
+    void hardDelete(String id) throws NotFoundException;
 }

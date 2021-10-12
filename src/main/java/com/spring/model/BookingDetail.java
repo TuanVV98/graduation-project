@@ -1,6 +1,5 @@
 package com.spring.model;
 
-import com.spring.dto.model.BookingDTO;
 import com.spring.dto.model.BookingDetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

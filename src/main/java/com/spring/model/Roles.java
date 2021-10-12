@@ -1,9 +1,7 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.dto.model.ProvincesDTO;
 import com.spring.dto.model.RolesDTO;
-import com.spring.enumeration.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

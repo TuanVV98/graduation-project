@@ -1,7 +1,6 @@
 package com.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.dto.model.DistrictsDTO;
 import com.spring.dto.model.EWalletDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

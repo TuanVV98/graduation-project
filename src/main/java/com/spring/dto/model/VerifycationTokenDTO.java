@@ -1,17 +1,15 @@
 package com.spring.dto.model;
 
-import com.spring.model.Service;
-import com.spring.model.VerifycationToken;
+import com.spring.model.VerificationToken;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -20,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class VerifycationTokenDTO {
 
-    @NotNull
+
     private Long id;
 
     @NotEmpty
@@ -31,13 +29,13 @@ public class VerifycationTokenDTO {
 
     private String type;
 
-    private Date createAt = new Date();
+    private Date createAt ;
 
-    private Date expiresAt = new Date();
+    private LocalDateTime expiresAt ;
 
-    private Date cerified = new Date();
+    private LocalDateTime cerified ;
 
-    public VerifycationToken convertDTOToEntity() {
-        return new ModelMapper().map(this, VerifycationToken.class);
+    public VerificationToken convertDTOToEntity() {
+        return new ModelMapper().map(this, VerificationToken.class);
     }
 }

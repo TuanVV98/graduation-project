@@ -2,25 +2,33 @@ package com.spring.service.account;
 
 import com.spring.dto.model.AccountsDTO;
 import com.spring.model.Accounts;
+import com.spring.model.VerificationToken;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Optional;
 
 public interface AccountService {
 
-    AccountsDTO register(AccountsDTO userDTO);
+    AccountsDTO register(AccountsDTO userDTO) throws MessagingException;
 
-    AccountsDTO update(AccountsDTO userDTO);
+    AccountsDTO updatePassword(AccountsDTO userDTO) throws MessagingException;
 
     Optional<Accounts> checkIfEmailExistsAndDeletedAt(String email);
-    
+
     Optional<Accounts> checkTelephone(String sdt);
-    
-    boolean checkId (Long id);
 
-    public List<AccountsDTO> findAll();
+    List<AccountsDTO> findAll();
 
-    public AccountsDTO findById(Long id);
+    AccountsDTO findById(Long id);
 
-    public void delete(Long id);
+    void delete(Long id);
+
+    void sendRegistrationConfirmationEmail(Accounts account) throws MessagingException;
+
+    void sendResetPasswordEmail(Accounts account) throws MessagingException;
+
+    boolean verifyAccount(Optional<VerificationToken> verifyToken);
+
+    boolean verifyChangePassword(Optional<VerificationToken> verifyToken);
 }

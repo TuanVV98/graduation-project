@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class BookingDetailDTO {
 
-    
+    @NotNull
     private Long id;
 
     @NotNull

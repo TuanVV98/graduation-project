@@ -23,7 +23,6 @@ public class AccountsDTO {
     @Email(message = "Sai định dạng")
     private String email;
 
-    @NotEmpty(message = "Không được để trống password")
     private String password;
 
     @NotBlank(message = "Không được để trống sđt")
@@ -32,6 +31,7 @@ public class AccountsDTO {
 
     private Date updateAt ;
 
+    @NotBlank
     String rolesId;
 
     private Boolean deleteAt;

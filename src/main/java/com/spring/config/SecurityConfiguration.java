@@ -59,9 +59,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers(
-                        "/api/v1/user/auth/**","/api/v1/schedule-tDime/**","/api/v1/accounts/**",
-                        "/v3/api-docs", "/swagger-resources/**", "/swagger-ui/**", "/manage/**").permitAll()
-                .antMatchers("/api/v1/categories/**","/api/v1/products/**","/api/v1/orders/**","/api/v1/order/details/**","/api/v1/users/**","/api/v1/user/profile/findBy")
+                "/api/v1/user/auth/**","/api/v1/schedule-tDime/**","/api/v1/accounts/**","/api/v1/posts/**","/api/v1/vouchers/**","/api/v1/files/**",
+                "/v3/api-docs", "/swagger-resources/**", "/swagger-ui/**", "/manage/**").permitAll()
+                .antMatchers("/api/")
                 .permitAll().anyRequest().authenticated();
 //
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

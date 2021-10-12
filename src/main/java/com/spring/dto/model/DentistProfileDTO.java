@@ -1,6 +1,5 @@
 package com.spring.dto.model;
 
-import com.spring.model.CustomerProfile;
 import com.spring.model.DentistProfile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.spring.model;
 
-import com.spring.dto.model.ServiceDTO;
 import com.spring.dto.model.VerifycationTokenDTO;
+import com.spring.enumeration.VerificationEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -18,7 +19,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "verifycation_token")
-public class VerifycationToken implements Serializable {
+public class VerificationToken implements Serializable {
 
     private static final long serialVersionUID = 5514528747731992863L;
 
@@ -27,27 +28,25 @@ public class VerifycationToken implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    Accounts accounts;
-
     @Column(name = "token")
     private String token;
 
     @Column(name = "type")
-    private String type;
+    private VerificationEnum type;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
     private Date createAt = new Date();
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "expires_at")
-    private Date expiresAt = new Date();
+    private LocalDateTime expiresAt ;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "cerified")
-    private Date cerified = new Date();
+    private LocalDateTime cerified ;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private  Accounts accounts;
 
     public VerifycationTokenDTO convertEntityToDTO() {
         return new ModelMapper().map(this, VerifycationTokenDTO.class);

@@ -1,6 +1,5 @@
 package com.spring.dto.model;
 
-import com.spring.model.EWallet;
 import com.spring.model.HistoryWallet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

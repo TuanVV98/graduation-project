@@ -31,13 +31,13 @@ public class DentistServiceImpl implements DentistService{
         this.dentistProfileRepository.findAllByDeleteAtIsFalse().forEach(t ->itemDTO.add(t.convertEntityToDTO()));
         return itemDTO;
     }
-    
+
     @Override
-	public List<DentistProfileDTO> getAllByTop(int top) {
-    	List<DentistProfileDTO> itemDTO = new ArrayList<>();
+    public List<DentistProfileDTO> getAllByTop(int top) {
+        List<DentistProfileDTO> itemDTO = new ArrayList<>();
         this.dentistProfileRepository.findAllByTop(top).forEach(t ->itemDTO.add(t.convertEntityToDTO()));
         return itemDTO;
-	}
+    }
 
     @Override
     public List<DentistProfileDTO> getAllOnRecycleBin() {
@@ -88,5 +88,4 @@ public class DentistServiceImpl implements DentistService{
                 .orElseThrow(() -> new NotFoundException("Dentist is not found"));
         dentistProfileRepository.delete(entity);
     }
-	
 }

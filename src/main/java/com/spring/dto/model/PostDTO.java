@@ -32,7 +32,7 @@ public class PostDTO {
     private String image;
 
     @NotBlank
-    private Long accountsDTO;
+    private Long accountsId;
 
     private Boolean deleteAt;
 

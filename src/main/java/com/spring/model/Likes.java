@@ -1,6 +1,5 @@
 package com.spring.model;
 
-import com.spring.dto.model.HistoryWalletDTO;
 import com.spring.dto.model.LikesDTO;
 import lombok.*;
 import org.modelmapper.ModelMapper;

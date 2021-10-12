@@ -1,6 +1,5 @@
 package com.spring.model.security;
 
-import com.spring.enumeration.RoleEnum;
 import com.spring.model.Accounts;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

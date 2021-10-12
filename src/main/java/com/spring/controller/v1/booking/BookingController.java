@@ -1,15 +1,11 @@
 package com.spring.controller.v1.booking;
 
 import com.spring.dto.model.BookingDTO;
-import com.spring.dto.response.Response;
 import com.spring.service.booking.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,75 +17,53 @@ public class BookingController {
 
 	// get all booking
 	@GetMapping()
-	public ResponseEntity<Response<List<BookingDTO>>> getAll() {
-		Response<List<BookingDTO>> response = new Response<>();
-		response.setData(bookingService.findAll());
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	public List<BookingDTO> getAll() {
+		return bookingService.findAll();
 	}
 
 	// get one booking by id
 	@GetMapping("{id}")
-	public ResponseEntity<Response<BookingDTO>> getOne(@PathVariable("id") Long id) {
-		Response<BookingDTO> response = new Response<>();
-		response.setData(bookingService.findById(id));
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	public BookingDTO getOne(@PathVariable("id") Long id) {
+		return bookingService.findById(id);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN' or 'RECEPTIONIST' or 'CUSTOMER')")
 	@PostMapping()
-	public ResponseEntity<Response<BookingDTO>> create(@RequestBody @Valid BookingDTO bookingDTO,
-			BindingResult bindingResult) {
-		Response<BookingDTO> response = new Response<>();
-		if (bindingResult.hasErrors()) {
-			bindingResult.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
-			return ResponseEntity.badRequest().body(response);
-		}
-		response.setData(this.bookingService.create(bookingDTO));
-		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	public BookingDTO create(@RequestBody BookingDTO bookingDTO) {
+		return bookingService.create(bookingDTO);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN' or 'RECEPTIONIST' or 'CUSTOMER')")
 	@PutMapping("{id}")
-	public ResponseEntity<Response<BookingDTO>> update(@PathVariable("id") Long id,
-			@RequestBody @Valid BookingDTO bookingDTO, BindingResult bindingResult) {
-		Response<BookingDTO> response = new Response<>();
-		if (bindingResult.hasErrors()) {
-			bindingResult.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
-			return ResponseEntity.badRequest().body(response);
-		}
-		response.setData(this.bookingService.update(bookingDTO));
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	public BookingDTO update(@PathVariable("id") Long id, @RequestBody BookingDTO bookingDTO) {
+		return bookingService.update(bookingDTO);
 	}
 
 	// cập nhật status 0-dang cho 1-dat lich thanh cong 2-dat lich that bai
+	@PreAuthorize("hasAnyRole('ADMIN' or 'RECEPTIONIST' or 'CUSTOMER' or 'DENTIST')")
 	@PutMapping("/{id}/status/{status}") // id - booking
-	public ResponseEntity<Response<BookingDTO>> updateStatus(@PathVariable("id") Long id,
-			@PathVariable("status") Integer status) {
-		Response<BookingDTO> response = new Response<>();
-		response.setData(bookingService.updateStatus(id, status));
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	public BookingDTO updateStatus(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
+		return bookingService.updateStatus(id, status);
 	}
 
-// - utils
+	// - utils
 	// lay booking theo scheduletime id (check trùng)
 	@GetMapping("/scheduleTime/{id}")
-	public ResponseEntity<Response<BookingDTO>> checkScheduleTime(@PathVariable("id") Long id) {
-		Response<BookingDTO> response = new Response<>();
-		response.setData(bookingService.findByScheduleTime(id));
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	public BookingDTO checkScheduleTime(@PathVariable("id") Long id) {
+		return bookingService.findByScheduleTime(id);
 	}
 
 	// lấy booking theo acc customer (người dùng xem đặt lịch của mình)
+	@PreAuthorize("hasAnyRole('CUSTOMER')")
 	@GetMapping("/customerId/{id}")
-	public ResponseEntity<Response<List<BookingDTO>>> getAllByCustomerId(@PathVariable("id") Long id) {
-		Response<List<BookingDTO>> response = new Response<>();
-		response.setData(bookingService.findByCustomerId(id));
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	public List<BookingDTO> getAllByCustomerId(@PathVariable("id") Long id) {
+		return bookingService.findByCustomerId(id);
 	}
 
 	// lấy booking theo acc dentist (bác sĩ xem công việc của mình)
+	@PreAuthorize("hasAnyRole('DENTIST')")
 	@GetMapping("/dentistId/{id}")
-	public ResponseEntity<Response<List<BookingDTO>>> getAllByDentistId(@PathVariable("id") Long id) {
-		Response<List<BookingDTO>> response = new Response<>();
-		response.setData(bookingService.findByDentistId(id));
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	public List<BookingDTO> getAllByDentistId(@PathVariable("id") Long id) {
+		return bookingService.findByDentistId(id);
 	}
 }
