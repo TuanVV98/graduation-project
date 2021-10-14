@@ -6,6 +6,7 @@ import com.spring.exception.NotFoundException;
 import com.spring.exception.NotParsableContentException;
 import com.spring.model.Voucher;
 import com.spring.service.voucher.VoucherService;
+import com.spring.service.voucher.VoucherServiceImpl;
 import com.spring.utils.ApiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,6 +32,24 @@ public class VoucherController {
 	@Autowired
 	public VoucherController(VoucherService voucherService) {
 		this.voucherService = voucherService;
+	}
+
+	@Autowired
+	VoucherServiceImpl voucherServiceImpl;
+
+	@PostMapping("/test")
+	public ResponseEntity<Response<VoucherDTO>> getAll1(VoucherDTO dto) {
+
+		Response<VoucherDTO> response = new Response<>();
+		response.setData(voucherServiceImpl.test(dto));
+		System.out.println("test");
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+
+	@GetMapping("/test/{id}")
+	@ResponseBody
+	public String getAll12(@PathVariable("id") int id) {
+		return voucherServiceImpl.sentVoucher(id,"") + "";
 	}
 
 	@GetMapping

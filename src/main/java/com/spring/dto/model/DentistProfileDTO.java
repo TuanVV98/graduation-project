@@ -18,11 +18,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class DentistProfileDTO {
 
-    @NotNull
+	
     private Long id;
 
     @NotBlank
-    AccountsDTO accountsDTO;
+    Long accountsDTO;
 
     private String image;
 

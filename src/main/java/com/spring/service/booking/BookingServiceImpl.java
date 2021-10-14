@@ -1,8 +1,11 @@
 package com.spring.service.booking;
 
 import com.spring.dto.model.BookingDTO;
+import com.spring.dto.model.CustomerProfileDTO;
 import com.spring.model.Booking;
 import com.spring.repository.BookingRepository;
+import com.spring.service.voucher.VoucherServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,8 @@ public class BookingServiceImpl implements  BookingService{
 
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    VoucherServiceImpl voucherServiceImpl;
 
     @Override
     public List<BookingDTO> findAll() {
@@ -93,6 +98,7 @@ public class BookingServiceImpl implements  BookingService{
         return dtoList;
     }
 
+    // gửi voucher
     @Override
     public BookingDTO updateStatus(Long id, Integer status) {
         Optional<Booking> optional = bookingRepository.findById(id);
@@ -102,6 +108,11 @@ public class BookingServiceImpl implements  BookingService{
             entity.setStatus(status);
             bookingRepository.save(entity);
             dto = entity.convertEntityToDTO();
+            if(status == 1) {
+            	CustomerProfileDTO b = findById(id).getCustomerProfileDTO();
+//            	voucherServiceImpl.sentVoucher(Integer.parseInt(b.getId() + ""), b.getAccountsDTO().getEmail());
+            	voucherServiceImpl.sentVoucher(Integer.parseInt(b.getId() + ""), "binhhtph11879@fpt.edu.vn");
+            }
         }
         return dto;
     }

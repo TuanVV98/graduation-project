@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class CommunesDTO {
 
-    @NotBlank(message = "Không được để trống")
+//    @NotBlank(message = "Không được để trống")
     private String id;
 
     @NotBlank(message = "Không được để trống")

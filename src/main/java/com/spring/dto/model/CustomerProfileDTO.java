@@ -18,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class CustomerProfileDTO {
 
-    @NotNull
+    
     private Long id;
 
     @NotBlank
