@@ -20,12 +20,9 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
-import PanelHeader from "components/PanelHeader/PanelHeader.js";
-import VoucherForm from "components/Voucher/VoucherForm";
-import VoucherList from "components/Voucher/VoucherList";
-import ServiceForm from "components/SService/ServiceForm";
-import ServiceList from "components/SService/ServiceList";
+import PanelHeader from "commons/PanelHeader/PanelHeader";
+import ServiceForm from "components/Admin/Service/ServiceForm";
+import ServiceList from "components/Admin/Service/ServiceList";
 
 function Voucher() {
 

@@ -1,20 +1,16 @@
-import React from "react";
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import PanelHeader from 'commons/PanelHeader/PanelHeader';
+import CustomerForm from "components/Admin/Customer/CustomerForm";
+import CustomerList from 'components/Admin/Customer/CustomerList';
+import React from "react";
 import {
   Card,
-  CardHeader,
-  Row,
-  Col,
+  CardHeader, Col, Row
 } from "reactstrap";
-
-import PanelHeader from "components/PanelHeader/PanelHeader.js";
-import CustomerList from "components/Customer/CustomerList";
-import CustomerForm from "components/Customer/CustomerForm";
 
 function Voucher() {
 

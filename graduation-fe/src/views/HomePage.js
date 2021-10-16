@@ -20,9 +20,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
-import PanelHeader from "components/PanelHeader/PanelHeader.js";
-
+import PanelHeader from "commons/PanelHeader/PanelHeader";
 const HomePage = () => {
   return (
     <>

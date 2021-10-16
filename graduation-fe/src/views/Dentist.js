@@ -20,10 +20,9 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
-import PanelHeader from "components/PanelHeader/PanelHeader.js";
-import DentistForm from "components/Dentist/DentistForm";
-import DentistList from "components/Dentist/DentistList";
+import PanelHeader from "commons/PanelHeader/PanelHeader";
+import DentistForm from "components/Admin/Dentist/DentistForm";
+import DentistList from "components/Admin/Dentist/DentistList";
 
 function Dentist() {
 

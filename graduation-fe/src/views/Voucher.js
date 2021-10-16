@@ -1,9 +1,5 @@
 import React from "react";
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -20,10 +16,9 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
-import PanelHeader from "components/PanelHeader/PanelHeader.js";
-import VoucherForm from "components/Voucher/VoucherForm";
-import VoucherList from "components/Voucher/VoucherList";
+import VoucherForm from "components/Admin/Voucher/VoucherForm";
+import PanelHeader from "commons/PanelHeader/PanelHeader";
+import VoucherList from "components/Admin/Voucher/VoucherList";
 
 function Voucher() {
 
@@ -32,7 +27,7 @@ function Voucher() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  
   return (
     <>
       <PanelHeader size="sm" />

@@ -11,10 +11,9 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
-import PanelHeader from "components/PanelHeader/PanelHeader.js";
-import AccountForm from "components/Account/AccountForm";
-import AccountList from "components/Account/AccountList";
+import AccountForm from "components/Admin/Account/AccountForm";
+import AccountList from "components/Admin/Account/AccountList";
+import PanelHeader from "commons/PanelHeader/PanelHeader";
 
 const Account = () => {
 

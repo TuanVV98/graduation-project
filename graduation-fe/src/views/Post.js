@@ -12,10 +12,9 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
-import PanelHeader from "components/PanelHeader/PanelHeader.js";
-import PostForm from "components/Post/PostForm";
-import PostList from "components/Post/PostList";
+import PanelHeader from "commons/PanelHeader/PanelHeader";
+import PostForm from "components/Admin/Post/PostForm";
+import PostList from "components/Admin/Post/PostList";
 
 function Voucher() {
 

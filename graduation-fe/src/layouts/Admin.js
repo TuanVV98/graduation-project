@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
-import DemoNavbar from "components/Navbars/DemoNavbar.js";
-import Footer from "components/Footer/Footer.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
-import routes from "routes.js";
+import accountApi from "api/accountApi";
+import Sidebar from "commons/Sidebar/Sidebar";
+import DemoNavbar from "commons/Navbars/DemoNavbar";
+import Footer from "commons/Footer/Footer";
+import routerAdmin from "routesAdmin";
 
 let ps;
 
@@ -13,7 +14,7 @@ function Admin(props) {
   const [backgroundColor, setBackgroundColor] = React.useState("blue");
   const mainPanel = React.useRef();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");
@@ -25,7 +26,8 @@ function Admin(props) {
       }
     };
   });
-  React.useEffect(() => {
+
+  useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     mainPanel.current.scrollTop = 0;
@@ -33,13 +35,18 @@ function Admin(props) {
   const handleColorClick = (color) => {
     setBackgroundColor(color);
   };
+
+  useEffect(() => {
+    accountApi.getAll().then((response => console.log(response)))
+  })
+
   return (
     <div className="wrapper">
-      <Sidebar {...props} routes={routes} backgroundColor={backgroundColor} />
+      <Sidebar {...props} routerAdmin={routerAdmin} backgroundColor={backgroundColor} />
       <div className="main-panel" ref={mainPanel}>
         <DemoNavbar {...props} />
         <Switch>
-          {routes.map((prop, key) => {
+          {routerAdmin.map((prop, key) => {
             return (
               <Route
                 path={prop.layout + prop.path}
