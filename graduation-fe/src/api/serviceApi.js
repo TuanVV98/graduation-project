@@ -14,7 +14,7 @@ const serviceApi = {
     },
 
     create(data){
-        return axiosInstance.get(BASE_URL, data)
+        return axiosInstance.post(BASE_URL, data)
     },
 
     update(id, data){
@@ -22,9 +22,9 @@ const serviceApi = {
         return axiosInstance.put(url, data)
     },
 
-    delete(id){
+    delete(id, data){
         const url = `${BASE_URL}/${id}`
-        return axiosInstance.delete(url)
+        return axiosInstance.put(url, data)
     }
     
 }

@@ -14,7 +14,7 @@ const bookingApi = {
     },
 
     create(data){
-        return axiosInstance.get(BASE_URL, data)
+        return axiosInstance.post(BASE_URL, data)
     },
 
     update(id, data){
@@ -29,4 +29,4 @@ const bookingApi = {
     
 }
 
-export default accountApi;
+export default bookingApi;

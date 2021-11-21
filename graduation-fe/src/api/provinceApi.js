@@ -5,7 +5,7 @@ export const BASE_URL = '/provinces'
 const provinceApi = {
 
     getAll(){
-        return axiosInstance.get(url)
+        return axiosInstance.get(BASE_URL)
     },
 
     getById(id){

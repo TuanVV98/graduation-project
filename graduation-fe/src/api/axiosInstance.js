@@ -1,31 +1,36 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://616689ac13aa1d00170a6557.mockapi.io/api/aladin',
-    headers: {
-        'Content-Type': 'Application/json'
-    }
-})
+  baseURL: 'http://localhost:8080/api/v1',
+  headers: {
+    'Content-Type': 'Application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+});
 
-axiosInstance.interceptors.request.use(function (config) {
+axiosInstance.interceptors.request.use(
+  function (config) {
     const accessToken = localStorage.getItem('access_token');
     if (accessToken) {
-        config.headers = {
-            Authorization: 'Bearer ' + accessToken,
-        };
+      config.headers = {
+        Authorization: 'Bearer ' + accessToken,
+      };
     }
+    console.log(accessToken);
     return config;
-}, function (error) {
+  },
+  function (error) {
     return Promise.reject(error);
-});
+  }
+);
 
-axiosInstance.interceptors.response.use(function (response) {
-
+axiosInstance.interceptors.response.use(
+  function (response) {
     return response.data;
-}, function (error) {
-
+  },
+  function (error) {
     return Promise.reject(error);
-});
+  }
+);
 
 export default axiosInstance;
-

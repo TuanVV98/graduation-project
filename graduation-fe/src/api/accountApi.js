@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance"
 
-export const BASE_URL = '/Account'
+export const BASE_URL = '/accounts'
 
 const accountApi = {
 
@@ -14,12 +14,8 @@ const accountApi = {
     },
 
     create(data){
-        return axiosInstance.get(BASE_URL, data)
-    },
-
-    register(data){
         const url = `${BASE_URL}/register`
-        return axiosInstance.get(url, data)
+        return axiosInstance.post(url, data)
     },
 
     update(id, data){
@@ -27,9 +23,9 @@ const accountApi = {
         return axiosInstance.put(url, data)
     },
 
-    delete(id){
+    delete(id, data){
         const url = `${BASE_URL}/${id}`
-        return axiosInstance.delete(url)
+        return axiosInstance.put(url, data)
     }
 
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -23,12 +23,32 @@ import {
 import PanelHeader from "commons/PanelHeader/PanelHeader";
 import DentistForm from "components/Admin/Dentist/DentistForm";
 import DentistList from "components/Admin/Dentist/DentistList";
+import dentistApi from "api/dentistApi";
 
 function Dentist() {
 
-  const [value, setValue] = React.useState('1');
+  const initValue = {id: '', accounts: '',image : '', cccd: '', fullName: '', birthday: '', gender: '', communes: '', telephone: '', exp: '', createAt: '', updateAt: new Date() , deleteAt: 0};
+  const [value, setValue] = useState('1');
+  const [formData, setFormData] = useState(initValue);
+  const [listDentist, setListDentist] = useState([initValue]);
+  const [provinces, setProvinces] = useState('');
+  const [district, setDistrict] = useState('');
 
-  const handleChange = (event, newValue) => {
+  useEffect(() => {
+    dentistApi.getAll()
+    .then((response) => {
+      const {data} = response
+      setListDentist(data)
+      console.log("dentist:", data)
+    })
+    .catch((error) => {
+      console.log(error, error.response)
+    })
+  }, [])
+
+  const handleChange = (event, newValue, data) => {
+    console.log(data);
+    setFormData(data);
     setValue(newValue);
   };
 
@@ -49,10 +69,10 @@ function Dentist() {
                       </TabList>
                     </Box>
                     <TabPanel value="1" sx={{marginLeft: '-2%'}}>
-                        <DentistForm />
+                        <DentistForm handleChange={handleChange} formData={formData} setFormData={setFormData} listDentist={listDentist} setListDentist={setListDentist} district={district} setDistrict={setDistrict} provinces={provinces} setProvinces={setProvinces} />
                     </TabPanel>
                     <TabPanel value="2">
-                        <DentistList handleChange={handleChange} />
+                        <DentistList handleChange={handleChange} listDentist={listDentist} setListDentist={setListDentist} />
                     </TabPanel>
                   </TabContext>
                 </Box>

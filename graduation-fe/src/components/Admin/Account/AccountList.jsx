@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,49 +13,44 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import {
-    CardBody,
     FormGroup,
-    Form,
     Input,
     Row,
     Col
   } from "reactstrap";
+import accountApi from 'api/accountApi';
+import toastifyAlert from 'utils/toastify';
 
 const columns = [
   { id: 'id', label: 'Id', minWidth: 50 },
   { id: 'email', label: 'Email', minWidth: 100 },
   {
-    id: 'phone_number',
+    id: 'telephone',
     label: 'Số điện thoại',
     minWidth: 50,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'author',
+    id: 'rolesId',
     label: 'Phân quyền',
+    minWidth: 100,
+    align: 'right',
+    format: (value) => value.toLocaleString('en-US'),
+  },
+  {
+    id: 'updateAt',
+    label: 'Ngày tạo',
     minWidth: 100,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   }
 ];
 
-function createData(id, email, phone_number, author) {
-  return { id, email, phone_number, author };
-}
-
-const rows = [
-  createData('1', 'user@gmail.com', "0123456789", "Quản trị viên"),
-  createData('2', 'user@gmail.com', "0123456789", "Quản trị viên"),
-  createData('3', 'user@gmail.com', "0123456789", "Quản trị viên"),
-  createData('4', 'user@gmail.com', "0123456789", "Quản trị viên"),
-  createData('5', 'user@gmail.com', "0123456789", "Quản trị viên"),
-  createData('6', 'user@gmail.com', "0123456789", "Quản trị viên"),
-];
-
-export default function AccountList( {handleChange} ) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+export default function AccountList( {handleChange, listAccount, setListAccount} ) {
+  
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -65,6 +60,29 @@ export default function AccountList( {handleChange} ) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const deleteHandle = (data) => {
+    const confirm = window.confirm("Bạn muốn xoá bản ghi này!")
+    if(confirm) {
+      data.deleteAt = 1
+      accountApi.delete(data.id, data)
+      .then((response) => {
+        toastifyAlert.success('Xoá thành công!');
+        setListAccount(
+          (listAccount) => {
+              const newListAcccount = listAccount.filter((val, idx) => {
+                  return val.id == data.id ? false : true
+              })
+              return newListAcccount
+          }
+      )
+      })
+      .catch((error) => {
+        toastifyAlert.error('Xoá thất bại!');
+        console.log(error, error.response)
+      })
+    }
+  }
 
   return (
       <div>
@@ -76,7 +94,6 @@ export default function AccountList( {handleChange} ) {
         <Row style={{marginTop: '1%'}}>
             <Col className="pr-1" md="12">
                 <FormGroup>
-                
                 <Input
                     label={<SearchIcon />}
                     type="text" placeholder="Search"
@@ -104,7 +121,7 @@ export default function AccountList( {handleChange} ) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows
+                    {listAccount
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                         return (
@@ -120,11 +137,11 @@ export default function AccountList( {handleChange} ) {
                             );
                             })}
                             <TableCell style={{ minWidth: 150 }}>
-                            <Button variant="contained" color="info">
+                            <Button variant="contained" color="info" onClick={ e => handleChange(e, "1", row)}>
                                 <EditIcon />
                                 Sửa
                             </Button>
-                            <Button variant="contained" color="error" style={{marginLeft: '1em'}}>
+                            <Button variant="contained" color="error" style={{marginLeft: '1em'}} onClick={(e) => deleteHandle(row)}>
                                 <DeleteIcon />
                                 Xoá
                             </Button>
@@ -136,9 +153,9 @@ export default function AccountList( {handleChange} ) {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                count={rows.length}
+                count={listAccount.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

@@ -1,12 +1,12 @@
-import axiosInstance from "./axiosInstance"
+// import axiosInstance from "./axiosInstance"
 
-const accountApi = {
+// const accountApi = {
 
-    login(data){
-        const url = '/user/auth'
-        return axiosInstance.post(url, data)
-    }
+//     login(data){
+//         const url = '/user/auth'
+//         return axiosInstance.post(url, data)
+//     }
     
-}
+// }
 
-export default accountApi;
+// export default accountApi;

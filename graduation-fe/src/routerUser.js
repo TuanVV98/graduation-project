@@ -1,59 +1,52 @@
-import Register from "components/Auth/DangKy/Register";
-import DangNhap from "components/Auth/Login/DangNhap";
-import ThongTinNguoiDung from "components/User/AccountInfo/ThongTinNguoiDung";
-import DatLich from "components/User/DatLich/DatLich";
-import ShowDetailNhaSi from "components/User/Dentist/ShowDetailNhaSi";
-import TrangChu from "components/User/HomePage/TrangChu";
-import HoSoKham from "components/User/HoSoKham/HoSoKham";
-import TinTucChiTiet from "components/User/TinTuc/TinTucChiTiet";
+import Book from "components/UserPage/Book/Book";
+import HomePage from "components/UserPage/HomePage/HomePage";
+import ShowDentist from "components/UserPage/HomePage/ShowDentist";
+import MedicalRecords from "components/UserPage/MedicalRecords/MedicalRecords";
+import DetailedNews from "components/UserPage/News/DetailedNews";
+import Register from "components/UserPage/Register/Register";
+import UserInformation from "components/UserPage/UserInformation/UserInformation";
 
 let routerUser = [
   {
-    path: "/",
+    path: "/home-page",
     name: "Trang chủ",
-    component: TrangChu,
+    component: HomePage,
     layout: "/user",
   },
   {
-    path: "/datich",
+    path: "/booking",
     name: "Đặt lịch",
-    component: DatLich,
+    component: Book,
     layout: "/user",
   },
   {
-    path: "/nhasi",
+    path: "/dentist",
     name: "Nha sĩ",
-    component: ShowDetailNhaSi,
+    component: ShowDentist,
     layout: "/user",
   },
   {
-    path: "/tintuc",
+    path: "/news",
     name: "Tin tức",
-    component: TinTucChiTiet,
+    component: DetailedNews,
     layout: "/user",
   },
   {
-    path: "/hosokham",
+    path: "/medicalRecords",
     name: "Hồ sơ khám",
-    component: HoSoKham,
+    component: MedicalRecords,
     layout: "/user",
   },
   {
-    path: "/taikhoan/dangnhap",
-    name: "Đăng nhập",
-    component: DangNhap,
-    layout: "/user",
-  },
-  {
-    path: "/taikhoan/dangky",
+    path: "/acc/register",
     name: "Đăng ký",
     component: Register,
     layout: "/user",
   },
   {
-    path: "/taikhoan/thongtinnguoidung",
+    path: "/userInformation",
     name: "Thông tin người dùng",
-    component: ThongTinNguoiDung,
+    component: UserInformation,
     layout: "/user",
   }
 ];

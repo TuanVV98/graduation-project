@@ -1,8 +1,4 @@
-import React, {useState} from "react";
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+import React, {useState, useEffect} from "react";
 import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/material/Button';
 import ImageIcon from '@mui/icons-material/Image';
@@ -17,27 +13,72 @@ import {
   Col
 } from "reactstrap";
 
+const CustomerForm = ({handleChange, formData, setFormData, listCustomer, setListCustomer}) => {
 
-const CustomerForm = () => {
-
-    const city  = [
-        { value: '1', label: 'Hà Nội' },
-        { value: '2', label: 'Bắc Giang' },
-        { value: '3', label: 'Bắc Ninh' } 
-    ]
-
-    const district = [
-        { value: '1', label: 'Nam Từ Liêm' },
-        { value: '2', label: 'Cầu Giấy' },
-        { value: '3', label: 'Thanh Xuân' }
-    ]
-
-    const ward = [
-        { value: '1', label: 'Đồng Tân' },
-        { value: '2', label: 'Hiệp Hoà' },
-        { value: '3', label: 'Bắc Giang' }
-    ]
-
+    const initValue = {id: '', email: '', password: '', telephone: '', updateAt: '', rolesId: ''}
+    const [onChange, setOnchage] = useState(false)
+    const [province, setProvince] = useState([])
+    const [district, setDistrict] = useState([])
+    const [communes, setCommunes] = useState([])
+  
+    useEffect(() => {
+        provinceApi.getAll()
+        .then((response) => {
+            const {data} = response
+            setProvince(data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }, [])
+  
+    useEffect(() => {
+        districtApi.getAll()
+        .then((response) => {
+            const {data} = response
+            setDistrict(data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }, [province])
+  
+    useEffect(() => {
+        communeApi.getAll()
+        .then((response) => {
+            const {data} = response
+            setCommunes(data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }, [district])
+  
+    const hanldeOnChange = (event) => {
+        event.preventDefault()
+        setOnchage(true)
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    }
+  
+    const submitForm = (e) => {
+      e.preventDefault()
+      formData.updateAt = new Date()
+      if(formData === undefined || formData.id == '') {
+      //   create()
+      } else {
+      //   update()
+      }
+      handleChange(e, "2")
+    }
+  
+    const reset = () => {
+      setFormData(initValue)
+    }
+    
     return(
         <CardBody>
             <Form>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,47 +13,46 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import {
-    CardBody,
     FormGroup,
-    Form,
     Input,
     Row,
     Col
   } from "reactstrap";
+import voucherApi from 'api/voucherApi';
 
 const columns = [
-  { id: 'name', label: 'Id', minWidth: 50 },
-  { id: 'code', label: 'Nội dung', minWidth: 100 },
+  { id: 'id', label: 'Id', minWidth: 50 },
+  { id: 'content', label: 'Nội dung', minWidth: 100 },
   {
-    id: 'population',
-    label: 'Ảnh/Video',
+    id: 'image',
+    label: 'Ảnh',
     minWidth: 50,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'size',
+    id: 'sale',
     label: 'Giảm giá',
     minWidth: 100,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'density',
+    id: 'start',
     label: 'Ngày bắt đầu',
     minWidth: 150,
     align: 'right',
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'density',
+    id: 'end',
     label: 'Ngày Kết thúc',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'density',
+    id: 'createAt',
     label: 'Ngày tạo',
     minWidth: 150,
     align: 'right',
@@ -61,28 +60,10 @@ const columns = [
   }
 ];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
-const rows = [
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-  createData('Id', 'Content', "image", "20%"),
-];
-
-export default function VoucherList( {handleChange} ) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+export default function VoucherList( {handleChange, listVoucher, setListVoucher} ) {
+  const initValue = {id: '', title: '', content: '', image: '', accounts: '', deleteAt: 0};
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -93,9 +74,18 @@ export default function VoucherList( {handleChange} ) {
     setPage(0);
   };
 
+  const deleteHandle = (data) => {
+    const confirm = window.confirm("Bạn muốn xoá bản ghi này!")
+    if(confirm) {
+      data.deleteAt = true
+      console.log(data.id, data)
+      voucherApi.delete(data.id, data)
+    }
+  }
+
   return (
       <div>
-        <Button variant="contained" onClick={ e => handleChange(e, "1")} style={{marginBottom: '1em'}}>
+        <Button variant="contained" onClick={ e => handleChange(e, "1", initValue)} style={{marginBottom: '1em'}}>
             <AddIcon />
             Thêm
         </Button>
@@ -131,27 +121,35 @@ export default function VoucherList( {handleChange} ) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows
+                    {listVoucher
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                         return (
                         <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                             {columns.map((column) => {
                             const value = row[column.id];
-                            return (
-                                <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === 'number'
-                                    ? column.format(value)
-                                    : value}
-                                </TableCell>
-                            );
+                            if(column.id == "image") {
+                              return <TableCell key={column.id} align={column.align}> 
+                                        <img src={"http://localhost:8080/api/v1/files/download/image?filename=" + column.format && typeof value === 'number'
+                                          ? column.format(value)
+                                          : value} alt="" />
+                                    </TableCell>
+                            }else {
+                              return (
+                                  <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === 'number'
+                                      ? column.format(value)
+                                      : value}
+                                  </TableCell>
+                              )
+                            }
                             })}
                             <TableCell style={{ minWidth: 150 }}>
-                            <Button variant="contained" color="info">
+                            <Button variant="contained" color="info" onClick={ e => handleChange(e, "1", row)}>
                                 <EditIcon />
                                 Sửa
                             </Button>
-                            <Button variant="contained" color="error" style={{marginLeft: '1em'}}>
+                            <Button variant="contained" color="error" style={{marginLeft: '1em'}} onClick={(e) => deleteHandle(row)}>
                                 <DeleteIcon />
                                 Xoá
                             </Button>
@@ -163,9 +161,9 @@ export default function VoucherList( {handleChange} ) {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                count={rows.length}
+                count={listVoucher.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

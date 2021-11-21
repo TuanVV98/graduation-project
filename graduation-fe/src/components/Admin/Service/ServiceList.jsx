@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,27 +13,27 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import {
-    CardBody,
     FormGroup,
-    Form,
     Input,
     Row,
     Col
   } from "reactstrap";
+import serviceApi from 'api/serviceApi';
+import toastifyAlert from 'utils/toastify';
 
 const columns = [
   { id: 'id',label : 'Id', minWidth: 50 },
-  { id: 'name', label: 'Tên dịch vụ', minWidth: 120 },
+  { id: 'content', label: 'Nội dung', minWidth: 120 },
   {
-    id: 'content',
-    label: 'Nội dung',
-    minWidth: 150,
+    id: 'image',
+    label: 'Ảnh',
+    minWidth: 80,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'image',
-    label: 'Ảnh/Video',
+    id: 'name',
+    label: 'Dịch vụ',
     minWidth: 100,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
@@ -46,7 +46,7 @@ const columns = [
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'create_date',
+    id: 'createAt',
     label: 'Ngày tạo',
     minWidth: 170,
     align: 'right',
@@ -54,26 +54,18 @@ const columns = [
   }
 ];
 
-function createData(id, name, content, image, price, create_date) {
-  return { id, name, content, image, price, create_date };
-}
-
-const rows = [
-  createData('1', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-  createData('2', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-  createData('3', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-  createData('4', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-  createData('5', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-  createData('6', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-  createData('7', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-  createData('8', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-  createData('9', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-  createData('10', 'Tên dịch vụ', "Nội dung", "Ảnh/Video", "Giá", "Ngày tạo"),
-];
-
-export default function ServiceList( {handleChange} ) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+export default function ServiceList( {handleChange, listService, setListService} ) {
+  const initValue = {
+    id: '',
+    content: '',
+    image: '',
+    name: '',
+    price: '',
+    createAt: new Date(),
+    deleteAt: 0,
+  };
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -84,9 +76,33 @@ export default function ServiceList( {handleChange} ) {
     setPage(0);
   };
 
+  const deleteHandle = (data) => {
+    const confirm = window.confirm("Bạn muốn xoá bản ghi này!")
+    if(confirm) {
+      data.deleteAt = 1
+
+      serviceApi.delete(data.id, data)
+      .then((response) => {
+        toastifyAlert.success('Xoá thành công!');
+        setListService(
+          (listService) => {
+              const newListService = listService.filter((val, idx) => {
+                  return val.id == data.id ? false : true
+              })
+              return newListService
+          }
+      )
+      })
+      .catch((error) => {
+        toastifyAlert.error('Xoá thất bại!');
+        console.log(error, error.response)
+      })
+    }
+  }
+
   return (
       <div>
-        <Button variant="contained" onClick={ e => handleChange(e, "1")} style={{marginBottom: '1em'}}>
+        <Button variant="contained" onClick={ e => handleChange(e, "1", initValue)} style={{marginBottom: '1em'}}>
             <AddIcon />
             Thêm
         </Button>
@@ -122,27 +138,33 @@ export default function ServiceList( {handleChange} ) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows
+                    {listService
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                         return (
                         <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                             {columns.map((column) => {
                             const value = row[column.id];
-                            return (
-                                <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === 'number'
-                                    ? column.format(value)
-                                    : value}
-                                </TableCell>
-                            );
+                            if(column.id == "image") {
+                              return <TableCell key={column.id} align={column.align}> 
+                                        <img style={{width: '60px', height: '60px'}} src={"http://localhost:8080/api/v1/files/download/image?filename=" + value} alt="image" />
+                                    </TableCell>
+                            }else {
+                              return (
+                                  <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === 'number'
+                                      ? column.format(value)
+                                      : value}
+                                  </TableCell>
+                              )
+                            }
                             })}
                             <TableCell style={{ minWidth: 150 }}>
-                            <Button variant="contained" color="info">
+                            <Button variant="contained" color="info" onClick={ e => handleChange(e, "1", row)}>
                                 <EditIcon />
                                 Sửa
                             </Button>
-                            <Button variant="contained" color="error" style={{marginLeft: '1em'}}>
+                            <Button variant="contained" color="error" style={{marginLeft: '1em'}} onClick={(e) => deleteHandle(row)}>
                                 <DeleteIcon />
                                 Xoá
                             </Button>
@@ -154,9 +176,9 @@ export default function ServiceList( {handleChange} ) {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                count={rows.length}
+                count={listService.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

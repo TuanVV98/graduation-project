@@ -12,11 +12,28 @@ import {
   CardHeader, Col, Row
 } from "reactstrap";
 
-function Voucher() {
+function Customer() {
 
-  const [value, setValue] = React.useState('1');
+  const initValue = {id: '', title: '', content: '', image: '', accounts: '', deleteAt: 0};
+  const [value, setValue] = useState('1');
+  const [formData, setFormData] = useState(initValue);
+  const [listCustomer, setListCustomer] = useState([initValue]);
 
-  const handleChange = (event, newValue) => {
+  // useEffect(() => {
+  //   postApi.getAll()
+  //   .then((response) => {
+  //     const {data} = response
+  //     setListDentist(data)
+  //     console.log(data)
+  //   })
+  //   .catch((error) => {
+  //     console.log(error, error.response)
+  //   })
+  // }, [])
+
+  const handleChange = (event, newValue, data) => {
+    console.log(data);
+    setFormData(data);
     setValue(newValue);
   };
 
@@ -37,10 +54,10 @@ function Voucher() {
                       </TabList>
                     </Box>
                     <TabPanel value="1" sx={{marginLeft: '-2%'}}>
-                        <CustomerForm />
+                        <CustomerForm handleChange={handleChange} formData={formData} setFormData={setFormData} listCustomer={listCustomer} setListCustomer={setListCustomer} />
                     </TabPanel>
                     <TabPanel value="2">
-                        <CustomerList handleChange={handleChange} />
+                        <CustomerList handleChange={handleChange} listCustomer={listCustomer} setListCustomer={setListCustomer} />
                     </TabPanel>
                   </TabContext>
                 </Box>
@@ -53,4 +70,4 @@ function Voucher() {
   );
 }
 
-export default Voucher;
+export default Customer;

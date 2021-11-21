@@ -6,6 +6,7 @@ import Post from "views/Post";
 import HomePage from "views/HomePage";
 import Dashboard from "views/Dashboard";
 import Account from "views/Account";
+import Booking from "views/Booking";
 
 let routerAdmin = [
   {
@@ -51,10 +52,10 @@ let routerAdmin = [
     layout: "/admin",
   },
   {
-    path: "/calenda",
+    path: "/booking",
     name: "Quản lý đặt lịch",
     icon: "ui-1_calendar-60",
-    component: Post,
+    component: Booking,
     layout: "/admin",
   },
   {
